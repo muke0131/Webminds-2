@@ -1,13 +1,19 @@
+require('dotenv').config();
 const express=require('express');
+const connectToDb=require('./db');
+const authRoute=require('./routes/auth-router')
+
 
 const app=express();
 
 app.use(express.json());
 
-const PORT=4000;
+const PORT=process.env.PORT;
 
-app.use('api/auth',authRoute);
+app.use('/api/auth',authRoute);
 
-const server=app.listen(PORT,()=>{
-    console.log(`Server Listening on : http://localhost:${PORT}`)
+connectToDb().then(()=>{
+    app.listen(PORT,()=>{
+        console.log(`Server Listening on : http://localhost:${PORT}`)
+    })
 })
