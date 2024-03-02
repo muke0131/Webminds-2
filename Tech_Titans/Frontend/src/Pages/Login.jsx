@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Box, Typography, TextField, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
+import {useAuth} from "../store/auth"
 const Login = () => {
   const navigate = useNavigate();
+  const {storeToken}=useAuth();
 
   const [inputs, setInputs] = useState({
     email: '',
@@ -19,7 +20,28 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs);
+    // console.log(inputs);
+    try{
+      const response=await fetch("http://localhost:4000/api/auth/login",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify(inputs)
+      })
+      if(response.ok){
+        const data=await response.json();
+        storeToken(data.token);
+        setInputs({email:"",password:""});
+        navigate("/Dashboard");
+      }
+      else{
+        console.log("Invalid Credentials");
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
   };
 
   return (

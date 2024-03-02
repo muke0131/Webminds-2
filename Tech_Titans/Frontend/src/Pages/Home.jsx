@@ -6,6 +6,7 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import User_details from '../components/User_details';
+import UserProfile from '../components/UserProfile';
 
 const linkStyles = {
   textDecoration: 'none',
@@ -15,6 +16,7 @@ const linkStyles = {
 const Home = () => {
   return (
     <div style={{ display: 'flex' }}>
+      <UserProfile/>
       <SideBar />
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'left', marginLeft: '3rem' }}>
         <div style={{ display: 'flex' }}>
