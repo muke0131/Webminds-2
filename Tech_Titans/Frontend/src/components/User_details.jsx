@@ -5,34 +5,32 @@ import React from 'react';
 const User_details = () => {
   return (
     <div style={{
-      background: '#ADD8E6',
+      background: '#d8dde8',
       padding: '15px',
-      borderRadius: '10px',
+      borderRadius: '8px',
       marginTop: '20px',
-      width:'20rem'
+      width:'15rem',
+      height:'12rem',
+      boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.2)',
+      fontFamily: 'Arial, sans-serif'
     }}>
-        <h2 style={{fontFamily:'times-new-roman',fontWeight:'bolder',fontSize:'2rem'}}>Customer Details</h2>
+        <h2 style={{fontWeight:'bold',fontSize:'1.5rem',fontFamily:'times-new-roman'}}>Customer Details</h2>
       <h3 style={{
-        fontFamily: 'Arial, sans-serif',
-        fontSize: '1.2rem',
-        fontWeight: 'bold',
-        marginBottom: '2px',
+        fontSize: '1rem',
+        fontWeight: 'bolder',
+        marginBottom: '8px',
       }}>Name</h3>
       <h3 style={{
-        fontFamily: 'Arial, sans-serif',
-        fontSize: '1.5rem',
-        marginBottom: '0px',
+        fontSize: '1.2rem',
+        marginBottom: '8px',
       }}>Prateek Gupta</h3>
       <h3 style={{
-        fontFamily: 'Arial, sans-serif',
-        fontSize: '1.2rem',
-        fontWeight: 'bold',
-        marginBottom: '0',
-
+        fontSize: '1rem',
+        fontWeight: 'bolder',
+        marginBottom: '4px',
       }}>Account ID</h3>
       <h3 style={{
-        fontFamily: 'Arial, sans-serif',
-        fontSize: '1.5rem',
+        fontSize: '1.2rem',
         marginBottom: '0',
       }}>1212131313131313</h3>
     </div>
