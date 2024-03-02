@@ -25,7 +25,10 @@ const userSchema=mongoose.Schema({
         type:String,
         required:[true,"Password is required"],
         minLength:[6,"Password must be atleast 6 characters long"]
-    }
+    },
+    banks:[{
+        account: {type: mongoose.Schema.Types.ObjectId, ref: "account", require: true},
+    }]
 })
 
 userSchema.pre('save',async function(next){

@@ -18,7 +18,7 @@ const register=async (req,res)=>{
             return res.status(400).json({msg:"Account already Exist"});
         }
         const userCreated=await User.create({username,email,phone,password});
-        const token_generated=await userExist.generate_token();
+        const token_generated=await userCreated.generate_token();
         const options={
                 expires:new Date(
                     Date.now()+(process.env.COOKIE_EXPIRE)*24*60*60*1000
@@ -34,11 +34,11 @@ const login=async (req,res)=>{
         const {email,password} = req.body;
         const userExist=await User.findOne({email});
         if(!userExist){
-            res.status(400).json({msg:"Invalid Credentials"});
+            return res.status(400).json({msg:"Invalid Credentials"});
         }
         const user=await userExist.comparePass(password);
         if(user){
-            const token_generated=await userExist.generate_token();
+            const token_generated = await userExist.generate_token();
             const options={
                 expires:new Date(
                     Date.now()+(process.env.COOKIE_EXPIRE)*24*60*60*1000
