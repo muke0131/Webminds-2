@@ -11,11 +11,13 @@ const addNewBank=async (req,res,next)=>{
             return res.status(404).json({message:"Account with those details dont exist"});
         }
         if(account.username === username){
-            user.banks.map(bank=>{
-                if(bank._id.toString() === account._id.toString()){
-                    return res.status(401).json({message:"Account already added"});
-                }
-            })
+            try{                
+                user.banks.forEach(bank=>{
+                    if(bank._id.toString() === account._id.toString()) throw BreakException;
+                })
+            }catch(e){
+                return res.status(401).json({message:"Account already added"});
+            }
             
             let newBanks = user.banks;
             
