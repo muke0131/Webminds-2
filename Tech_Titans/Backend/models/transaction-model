@@ -1,0 +1,24 @@
+const mongoose = require("mongoose");
+
+const transactionSchema = mongoose.Schema(
+	{   from_name: {type: String, required: true},
+		from_account: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "account",
+			require: true,
+		},
+        to_name: {type: String, required: true},
+		to_account: { type: mongoose.Schema.Types.ObjectId, ref: "account", require: true },
+		amount: {
+			type: Number,
+			required: [true, "Amount is required"],
+		}
+	},
+	{
+		timestamp: true,
+	}
+);
+
+const Transaction = new mongoose.model("Account", transactionSchema);
+
+module.exports = Transaction;

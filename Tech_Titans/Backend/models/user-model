@@ -28,7 +28,11 @@ const userSchema=mongoose.Schema({
     },
     banks:[{
         account: {type: mongoose.Schema.Types.ObjectId, ref: "account", require: true},
+    }],
+    transactions:[{
+        transaction: {type: mongoose.Schema.Types.ObjectId, ref: "transaction", require: true}
     }]
+
 })
 
 userSchema.pre('save',async function(next){

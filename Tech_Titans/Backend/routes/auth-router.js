@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const {home,login,register,logout,getuser}=require('../controllers/auth-controller');
-const {addBank}  = require('../controllers/addBank-controller')
+const {addBank}  = require('../controllers/account-controller')
 const isAuthenticatedUser=require('../Middleware/authMiddleware');
 const { addNewBank, deleteBank } = require('../controllers/user-controller');
 
