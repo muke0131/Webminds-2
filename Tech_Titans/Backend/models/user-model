@@ -27,10 +27,10 @@ const userSchema=mongoose.Schema({
         minLength:[6,"Password must be atleast 6 characters long"]
     },
     banks:[{
-        account: {type: mongoose.Schema.Types.ObjectId, ref: "account", require: true},
+        account: {type: mongoose.Schema.Types.ObjectId, ref: 'account', require: true},
     }],
     transactions:[{
-        transaction: {type: mongoose.Schema.Types.ObjectId, ref: "transaction", require: true}
+        transaction: {type: mongoose.Schema.Types.ObjectId, ref: 'Transaction', require: true},
     }]
 
 })

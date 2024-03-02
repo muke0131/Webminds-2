@@ -4,6 +4,7 @@ const connectToDb=require('./db');
 const bodyParser=require('body-parser');
 const authRoute=require('./routes/auth-router')
 const accountRoute=require('./routes/account-route')
+const transactionRoute=require('./routes/transaction-route');
 const cors=require("cors");
 
 const app=express();
@@ -21,6 +22,7 @@ const PORT=process.env.PORT;
 
 app.use('/api/auth',authRoute);
 app.use('/api/account',accountRoute);
+app.use('/api/payments',transactionRoute);
 
 connectToDb().then(()=>{
     app.listen(PORT,()=>{
