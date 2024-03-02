@@ -6,9 +6,9 @@ import { useState } from 'react';
 
 const AddAccount = () => {
   const [inputs, setInputs] = useState({
-    bank: 'Central Bank Of India',
-    accno: '',
-    acc_holder: ''
+    bank_name: 'Central Bank Of India',
+    account_no: '',
+    username: ''
   });
 
   const handleChange = (e) => {
@@ -18,9 +18,23 @@ const AddAccount = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs); // Log the data entered by the user
+    try{
+      const response=await fetch("http://localhost:4000/api/account/addBank",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application-json"
+        },
+        body:JSON.stringify(inputs)
+      })
+      if(response.ok){
+        console.log("Bank Added Successfully");
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
   };
 
   return (
@@ -49,8 +63,8 @@ const AddAccount = () => {
           }}>
             <h3>Select Bank</h3>
             <select
-              name="bank"
-              value={inputs.bank}
+              name="bank_name"
+              value={inputs.bank_name}
               onChange={handleChange}
               style={{
                 padding: '8px',
@@ -75,8 +89,8 @@ const AddAccount = () => {
             <input
               type="text"
               id="accountNo"
-              name="accno"
-              value={inputs.accno}
+              name="account_no"
+              value={inputs.account_no}
               onChange={handleChange}
               style={{
                 padding: '8px',
@@ -93,9 +107,9 @@ const AddAccount = () => {
             <h3>Enter Account Holder</h3>
             <input
               type="text"
-              id="accountholder"
-              name="acc_holder"
-              value={inputs.acc_holder}
+              id="username"
+              name="username"
+              value={inputs.username}
               onChange={handleChange}
               style={{
                 padding: '8px',

@@ -1,8 +1,48 @@
-
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../store/auth';
 
 const User_details = () => {
+
+  const [userName,setUsername]=useState("---------");
+  const [ac,setAc]=useState("***************");
+  const { authToken } = useAuth();
+
+  const getDetails=async ()=>{
+    try{
+      const response=await fetch("http://localhost:4000/api/auth/user",{
+        method:"GET",
+        headers: {
+          Authorization: authToken,
+        }
+      })
+      if(response.ok){
+        const data=await response.json()
+        console.log(data)
+        setUsername(data.user.username);
+        const newRes=await fetch(`http://localhost:4000/api/account/bank/${data.user.banks[0]._id}`,{
+          method:"GET",
+          headers: {
+            Authorization: authToken,
+          }
+        })
+        if(newRes.ok){
+          const bankData=await newRes.json();
+          console.log(bankData);
+          setAc(bankData.account.account_no);
+        }
+      }
+      else{
+        setUsername("---------")
+        setAc("***************")
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+  useEffect(()=>{
+    getDetails();
+  },[getDetails])
   return (
     <div style={{
       background: '#d8dde8',
@@ -23,7 +63,7 @@ const User_details = () => {
       <h3 style={{
         fontSize: '1.2rem',
         marginBottom: '8px',
-      }}>Prateek Gupta</h3>
+      }}>{userName}</h3>
       <h3 style={{
         fontSize: '1rem',
         fontWeight: 'bolder',
@@ -32,7 +72,7 @@ const User_details = () => {
       <h3 style={{
         fontSize: '1.2rem',
         marginBottom: '0',
-      }}>1212131313131313</h3>
+      }}>{ac}</h3>
     </div>
   );
 };

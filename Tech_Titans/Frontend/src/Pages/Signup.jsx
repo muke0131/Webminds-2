@@ -55,7 +55,7 @@ const Signup = () => {
       <form onSubmit={handleSubmit}>
         <Box maxWidth={450} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center" padding={3} borderRadius={5} boxShadow={3} bgcolor="white">
           <Typography variant='h4' textAlign="center" fontFamily="Times New Roman" color="black"  mb={3}>Register</Typography>
-          <TextField label='Name' value={inputs.username} onChange={handleChange} name='name' margin='normal' type='text' required />
+          <TextField label='Name' value={inputs.username} onChange={handleChange} name='username' margin='normal' type='text' required />
           <TextField label='Email' value={inputs.email} onChange={handleChange} name='email' margin='normal' type='email' required />
           <TextField label='Phone Number' value={inputs.phone} onChange={handleChange} name='phone' margin='normal' type='text' required />
           <TextField label='Password' value={inputs.password} onChange={handleChange} name='password' margin='normal' type='password' required />
