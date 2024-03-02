@@ -3,6 +3,7 @@ const express=require('express');
 const connectToDb=require('./db');
 const bodyParser=require('body-parser');
 const authRoute=require('./routes/auth-router')
+const accountRoute=require('./routes/account-route')
 const cors=require("cors");
 
 const app=express();
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 const PORT=process.env.PORT;
 
 app.use('/api/auth',authRoute);
+app.use('/api/account',accountRoute);
 
 connectToDb().then(()=>{
     app.listen(PORT,()=>{

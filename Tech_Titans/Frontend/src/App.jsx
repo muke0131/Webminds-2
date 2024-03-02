@@ -24,8 +24,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      {isLoggedIn && <Header/>}
-      {isLoggedIn && <SideBar/>}
+      {!isLoginPage && isLoggedIn && <Header/>}
+      {!isLoginPage && isLoggedIn && <SideBar/>}
       <Routes>
         <Route path='/' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>

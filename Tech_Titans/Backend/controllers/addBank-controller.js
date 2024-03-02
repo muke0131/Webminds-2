@@ -7,7 +7,8 @@ const addBank = async (req, res) => {
     if(!account){
         account = await Account.create({username,bank_name,account_no,balance});
         res.status(200).json({message:"Account added successfully",data:account});
-    }else{
+    }
+    else{
         res.status(403).json({message:"Account already exists"});
     }
 };

@@ -6,7 +6,7 @@ const addNewBank=async (req,res,next)=>{
     const user=req.user;
     const {username, account_no,bank_name} = req.body;
     try{
-        const account = await Account.findOne({bank_name,account_no});
+        const account = await Account.findOne({bank_name:bank_name,account_no:account_no});
         if(!account){
             return res.status(404).json({message:"Account with those details dont exist"});
         }
@@ -52,4 +52,21 @@ const deleteBank=async (req,res,next)=>{
         res.status(500).json({ msg: "Internal Server Error :" + err });
     }
 }
-module.exports = {addNewBank,deleteBank};
+
+const getBank=async (req,res,next)=>{
+    try{
+        const id=req.params.id;
+        const account=await Account.findById({_id:id});
+        if(!account){
+            return res.status(404).json("Account not found");
+        }
+        else{
+            return res.status(201).json({account});
+        }
+    }
+    catch(err){
+        res.status(500).json({ msg: "Internal Server Error :" + err });
+    }
+    next();
+}
+module.exports = {addNewBank,deleteBank,getBank};
