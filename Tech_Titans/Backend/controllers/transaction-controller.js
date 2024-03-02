@@ -20,7 +20,11 @@ const makeTransaction = async (req, res, next) => {
 				await from.save();
 				await to.save();
                 const tnx = await Transaction.create({from_name:from.username,from_account:from,to_name:to.username,to_account:to,amount:amount})
-                user.transactions.push(tnx);
+                let transactions = user.transactions
+                transactions.push(tnx);
+                user.transactions = transactions;
+                await user.save();
+                res.status(200).json({message:"Payment Successful",data:tnx});
 			}else{
                 res.status(400).json({message: "Payment Failed Not enough balance"});
             }
