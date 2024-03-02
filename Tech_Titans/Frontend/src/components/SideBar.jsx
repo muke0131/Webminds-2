@@ -19,7 +19,7 @@ const SideBar = () => {
       anchor="left"
     >
       <List sx={{padding:'16px',color:'#fff'}}>
-        <ListItem component={Link} to="/Dashboard" button sx={{marginBottom:'19rem'}}>
+        <ListItem component={Link} to="/" button sx={{marginBottom:'19rem'}}>
           <ListItemText primary="Dashboard" 
           primaryTypographyProps={{ 
             variant: 'h5', 

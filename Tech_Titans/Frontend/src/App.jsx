@@ -14,22 +14,16 @@ import Statement from './Pages/Statement'
 import SideBar from './components/SideBar'
 import Login from './Pages/Login'
 import Signup from './Pages/Signup'
-import LogOut from './Pages/LogOut'
-import Header from './components/Header'
-import { useAuth } from './store/auth'
 
 function App() {
-  const {isLoggedIn}=useAuth();
   const isLoginPage = window.location.pathname === '/' || window.location.pathname === '/signup';
+
   return (
-    <>
     <BrowserRouter>
-      {isLoggedIn && <Header/>}
-      {isLoggedIn && <SideBar/>}
+      {!isLoginPage && <SideBar/>}
       <Routes>
         <Route path='/' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
-        <Route path='/logout' element={<LogOut/>}/>
         <Route path='/Dashboard' element={<Home/>}/>
         <Route path='/send-money' element={<SendMoney/>}/>
         <Route path='/receive-money' element={<ReceiveMoney/>}/>
@@ -41,7 +35,6 @@ function App() {
         <Route path='/statement' element={<Statement/>}/>
       </Routes>
     </BrowserRouter>
-    </>
   )
 }
 

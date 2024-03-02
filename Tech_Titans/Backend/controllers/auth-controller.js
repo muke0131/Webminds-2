@@ -18,8 +18,12 @@ const register=async (req,res)=>{
             return res.status(400).json({msg:"Account already Exist"});
         }
         const userCreated=await User.create({username,email,phone,password});
-        
-        res.status(201).json({msg:"User Registered Successfully",token:await userCreated.generate_token(),userId:userCreated._id.toString()});
+        const token_generated=await userExist.generate_token();
+        const options={
+                expires:new Date(
+                    Date.now()+(process.env.COOKIE_EXPIRE)*24*60*60*1000
+                )};
+        res.status(201).cookie('token',token_generated,options).json({msg:"User Registered Successfully",token:await userCreated.generate_token(),userId:userCreated._id.toString()});
     }
     catch(error){
         res.status(500).json({msg:"Internal Server Error :"+error});
@@ -34,10 +38,16 @@ const login=async (req,res)=>{
         }
         const user=await userExist.comparePass(password);
         if(user){
-            
-            res.status(200).json({
+            const token_generated=await userExist.generate_token();
+            const options={
+                expires:new Date(
+                    Date.now()+(process.env.COOKIE_EXPIRE)*24*60*60*1000
+                ),
+                httpOnly:true,
+            };
+            res.status(200).cookie('token',token_generated,options).json({
                 msg:"Login Successful",
-                token:await userExist.generate_token(),
+                token:token_generated,
                 userId:userExist._id.toString()
             })
         }
@@ -50,16 +60,18 @@ const login=async (req,res)=>{
     }
 }
 
-
-
-const getuser=async (req,res)=>{
-    try{
-        const user=req.user;
-        return res.status(200).json({user});
+const logout=async (req,res)=>{
+    const options={
+        expires:new Date(Date.now()),
+        httpOnly:true
     }
-    catch(error){
-        console.log(`Error from user ${error}`);
-    }
+    res.cookie("token",null,options)
+    res.status(200).json({msg:"Logged Out Successfully"});
 }
 
-module.exports={home,register,login,getuser};
+const getuser=async (req,res,next)=>{
+    const user=req.user;
+    res.status(200).json({user});
+}
+
+module.exports={home,register,login,logout,getuser};
