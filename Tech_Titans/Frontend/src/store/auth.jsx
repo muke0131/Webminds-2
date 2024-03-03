@@ -22,7 +22,7 @@ export const AuthProvider=({children})=>{
     const userAuth=async()=>{
         try{
             setIsLoading(true);
-            const response=await fetch("http://localhost:4000/api/auth/user",{
+            const response=await fetch("https://webminds-2.onrender.com/api/auth/user",{
                 method:"GET",
                 headers:{
                     Authorization:authToken

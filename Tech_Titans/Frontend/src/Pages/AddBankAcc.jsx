@@ -1,19 +1,16 @@
-
 import React from 'react';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import SideBar from '../components/SideBar';
 import { useState } from 'react';
 import { Typography } from '@mui/material';
-import { useAuth } from '../store/auth';
 
-const AddAccount = () => {
+const AddBankAcc = () => {
   const [inputs, setInputs] = useState({
-    username: '',
+    bank_name: 'Central Bank Of India',
     account_no: '',
-    bank_name: 'Central Bank Of India'
+    username: '',
+    balance:''
   });
-
-  const {authToken}=useAuth();
 
   const handleChange = (e) => {
     setInputs(prevState => ({
@@ -24,22 +21,16 @@ const AddAccount = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs)
     try{
-      const response=await fetch("https://webminds-2.onrender.com/api/account/addBank",{
-        method:"POST",
+      const response=await fetch("https://webminds-2.onrender.com/api/account/admin/createAccount",{
+        method:'POST',
         headers:{
-          "Content-Type":"application/json",
-          "Authorization":authToken
+          "Content-Type":"application/json"
         },
         body:JSON.stringify(inputs)
       })
-      console.log(response)
       if(response.ok){
         console.log("Bank Added Successfully");
-      }
-      else{
-        console.log("Some error Occured");
       }
     }
     catch(err){
@@ -50,8 +41,8 @@ const AddAccount = () => {
   return (
     <div style={{ display: 'flex' }}>
       <SideBar />
-      <form onSubmit={handleSubmit} style={{marginTop:"1.2rem"}}>
-      <Typography variant="h4" style={{ color: '#ffffff', marginBottom: '10px',fontFamily:'times-new-roman' ,textAlign:'center' , position:'relative' ,marginLeft:"9rem"}}>Add Bank Account</Typography>
+      <form onSubmit={handleSubmit}>
+      <Typography variant="h4" style={{ color: '#ffffff', marginBottom: '20px',fontFamily:'times-new-roman' }}>Bank</Typography>
         <div style={{
           backgroundColor: 'inherit',
           color: '#fff',
@@ -66,7 +57,7 @@ const AddAccount = () => {
             left: '50%',
             transform: 'translateX(-50%)',
             width: '500px',
-            height: '180px',
+            height: '200px',
           }} />
           <div className="select-bank" style={{
             display: 'inline-block',
@@ -129,10 +120,24 @@ const AddAccount = () => {
                 borderRadius: '5px',
               }}
             />
+            <h3>Enter Balance</h3>
+            <input
+              type="text"
+              id="balance"
+              name="balance"
+              value={inputs.balance}
+              onChange={handleChange}
+              style={{
+                padding: '8px',
+                width: '490px',
+                border: 'none',
+                borderRadius: '5px',
+              }}
+            />
           </div>
           <button
             style={{
-              backgroundColor: '#3A833A',
+              backgroundColor: '#8a2be2',
               color: 'white',
               padding: '10px 20px',
               border: 'none',
@@ -150,4 +155,4 @@ const AddAccount = () => {
   );
 };
 
-export default AddAccount;
+export default AddBankAcc;

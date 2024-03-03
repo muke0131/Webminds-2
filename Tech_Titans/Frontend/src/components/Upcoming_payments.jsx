@@ -1,25 +1,75 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../store/auth';
+
 
 const UpcomingPayments = () => {
-  const upcomingPayments = [
-    { title: 'Electricity Bill', amount: '$100' },
-    { title: 'Internet Bill', amount: '$50' },
-    { title: 'Internet Bill', amount: '$50' },
-    // { title: 'Internet Bill', amount: '$50' },
-  ];
+  const [balance,setBalance]=useState(0);
+  const { authToken } = useAuth();
 
+
+  const getDetails=async ()=>{
+    try{
+      const response=await fetch("https://webminds-2.onrender.com/api/auth/user",{
+        method:"GET",
+        headers: {
+          Authorization: authToken,
+        }
+      })
+      if(response.ok){
+        const data=await response.json()
+        // console.log(data)
+        const newRes=await fetch(`https://webminds-2.onrender.com/api/account/bank/${data.user.banks[1]._id}`,{
+          method:"GET",
+          headers: {
+            Authorization: authToken,
+          }
+        })
+        if(newRes.ok){
+          const bankData=await newRes.json();
+          console.log(bankData.account.balance);
+          setBalance(bankData.account.balance);
+        }
+      }
+      else{
+        setBalance(0);
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+  useEffect(()=>{
+    getDetails();
+  },[getDetails])
   return (
-    <div style={{ backgroundColor: '#6e6eba', padding: '10px', height: 'auto', maxHeight: '210px', overflowY: 'auto',marginTop:'20px',borderRadius:'5px' }}>
-      <h1 style={{ color: 'white', fontWeight: 'bold', fontSize: '1.5rem', marginBottom: '10px' }}>Upcoming Payments</h1>
-      <div style={{ display: 'grid', gap: '10px' }}>
-        {upcomingPayments.map((payment, index) => (
-          <div key={index} style={{ backgroundColor: 'transparent', padding: '10px', borderRadius: '5px', display: 'grid', gridTemplateColumns: '1fr auto', gap: '5px' }}>
-            <div style={{ fontWeight: 'bold', fontSize: '1.3rem', color: 'white' }}>{payment.title}</div>
-            <div style={{ fontStyle: 'italic', color: 'white' }}>{payment.amount}</div>
-          </div>
-        ))}
-      </div>
+    <div style={{
+      background: '#f5f5f5',
+      padding: '20px',
+      borderRadius: '12px',
+      marginTop: '20px',
+      width: '200px',
+      height: '150px',
+      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      fontFamily: 'Arial, sans-serif',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      textAlign: 'center'
+    }}>
+      <h2 style={{
+        fontSize: '1.9rem',
+        fontWeight: 'bolder',
+        margin: '0 0 10px 0',
+        color: '#333',
+        fontFamily:'serif'
+      }}>Balance</h2>
+      <h1 style={{
+        fontSize: '2.5rem',
+        margin: '0',
+        color: '#4CAF50'
+      }}>₹ {balance}</h1>
     </div>
   );
 };

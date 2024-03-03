@@ -9,7 +9,7 @@ const User_details = () => {
 
   const getDetails=async ()=>{
     try{
-      const response=await fetch("http://localhost:4000/api/auth/user",{
+      const response=await fetch("https://webminds-2.onrender.com/api/auth/user",{
         method:"GET",
         headers: {
           Authorization: authToken,
@@ -17,8 +17,8 @@ const User_details = () => {
       })
       if(response.ok){
         const data=await response.json()
-        console.log(data)
-        const newRes=await fetch(`http://localhost:4000/api/account/bank/${data.user.banks[0]._id}`,{
+        // console.log(data)
+        const newRes=await fetch(`https://webminds-2.onrender.com/api/account/bank/${data.user.banks[0]._id}`,{
           method:"GET",
           headers: {
             Authorization: authToken,

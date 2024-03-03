@@ -26,7 +26,7 @@ const Signup = () => {
     e.preventDefault();
     console.log(inputs);
     try{
-      const response=await fetch("http://localhost:4000/api/auth/register",{
+      const response=await fetch("https://webminds-2.onrender.com/api/auth/register",{
         method:'POST',
         headers:{
           "Content-Type":"application/json",

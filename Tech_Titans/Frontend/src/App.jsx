@@ -17,6 +17,7 @@ import Signup from './Pages/Signup'
 import LogOut from './Pages/LogOut'
 import Header from './components/Header'
 import { useAuth } from './store/auth'
+import AddBankAcc from './Pages/AddBankAcc'
 
 function App() {
   const {isLoggedIn}=useAuth();
@@ -26,7 +27,7 @@ function App() {
     <BrowserRouter>
       {!isLoginPage && isLoggedIn && <Header/>}
       {!isLoginPage && isLoggedIn && <SideBar/>}
-      {isLoggedIn && (
+      
         <Routes>
           
           <Route path='/logout' element={<LogOut/>}/>
@@ -39,14 +40,12 @@ function App() {
           <Route path='/service' element={<Service/>}/>
           <Route path='/security' element={<Security/>}/>
           <Route path='/statement' element={<Statement/>}/>
-        </Routes>
-        )}
-        {!isLoggedIn && (
-          <Routes>
+        
           <Route path='/' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
-          </Routes>
-        )}
+          <Route path='/bank' element={<AddBankAcc/>}/>
+        </Routes>
+       
     </BrowserRouter>
   )
 }

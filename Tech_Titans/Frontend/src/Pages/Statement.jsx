@@ -28,7 +28,7 @@ const Statement = () => {
 
   const getTransactions=async()=>{
     try{
-      const response=await fetch("http://localhost:4000/api/payments/transactions",{
+      const response=await fetch("https://webminds-2.onrender.com/api/payments/transactions",{
         method:"GET",
         headers:{
           "Authorization":authToken
