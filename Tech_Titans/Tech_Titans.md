@@ -1,6 +1,6 @@
 <h1 align="center" id="title">Payments App</h1>
 
-  
+[WEB APP LINK](https://easypayy.netlify.app/)
   
 <h2>🧐 Features</h2>
 
