@@ -77,5 +77,22 @@ const getBank = async (req, res, next) => {
 	}
 	next();
 };
+const getUserAccounts = async (req, res, next) => {
+	const user = req.user;
+	console.log(user);
+	try {
+		var accounts = [];
+		await Promise.all(
+			user.banks.map(async (acc) => {
+				var a = await Account.findById(acc._id);
+				await accounts.push(a);
+			})
+		);
+		res.status(200).json(accounts);
+	} catch (err) {
+		res.status(500).json({ msg: "Internal Server Error :" + err });
+	}
+	next();
+};
 
-module.exports = { addNewBank, deleteBank, getBank};
+module.exports = { addNewBank, deleteBank, getBank, getUserAccounts };

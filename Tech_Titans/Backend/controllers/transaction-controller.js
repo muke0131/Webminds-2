@@ -40,9 +40,15 @@ const makeTransaction = async (req, res, next) => {
 const getUserTransactions = async (req, res, next) => {
 	const user = req.user;
 	try{
-        const newUser = await User.findById(user._id).populate('transactions').exec();//not populating
+        const newUser = await User.findById(user._id)
         const transactions = newUser.transactions
-        res.status(200).json({transactions});
+		var trnxs = []
+		await Promise.all(transactions.map(async (tnx)=>{
+			var t = await Transaction.findById(tnx._id);
+			console.log(t);
+			await trnxs.push(t)
+		}))
+        res.status(200).json(trnxs);
     }catch (err) {
 		res.status(500).json({ msg: "Internal Server Error :" + err });
 	}
