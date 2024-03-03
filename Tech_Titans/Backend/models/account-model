@@ -18,7 +18,10 @@ const accountSchema = mongoose.Schema({
 		type: Number,
 		default: Math.random()*10000,
 	},
-});
+},{
+	timestamps:true
+}
+);
 
 const Account=new mongoose.model('Account',accountSchema);
 

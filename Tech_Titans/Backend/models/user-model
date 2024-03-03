@@ -32,7 +32,8 @@ const userSchema=mongoose.Schema({
     transactions:[{
         transaction: {type: mongoose.Schema.Types.ObjectId, ref: 'Transaction', require: true},
     }]
-
+},{
+    timestamps:true
 })
 
 userSchema.pre('save',async function(next){

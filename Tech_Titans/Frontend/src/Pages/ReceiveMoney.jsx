@@ -2,16 +2,62 @@
 import React, { useState, useEffect } from 'react';
 import QRCode from "react-qr-code";
 import SideBar from '../components/SideBar';
-import { Divider} from '@mui/material';
+import { Divider, Typography} from '@mui/material';
+import { useAuth } from '../store/auth';
 const ReceiveMoney = () => {
+  const [loading,setLoading]=useState(true);
   const [qrCodeData, setQRCodeData] = useState('');
   const [shareableLink, setShareableLink] = useState('');
   const [upiID, setUpiID] = useState('');
+  const [username, setUsername] = useState('');
+  const [account, setAccount] = useState('');
+  const [bank_name, setBank_name] = useState('');
+  const {authToken}=useAuth();
+  const getDetails=async ()=>{
+    try{
+      const response=await fetch("http://localhost:4000/api/auth/user",{
+        method:"GET",
+        headers: {
+          Authorization: authToken,
+        }
+      })
+      if(response.ok){
+        const data=await response.json()
+        console.log(data)
+        const newRes=await fetch(`http://localhost:4000/api/account/bank/${data.user.banks[0]._id}`,{
+          method:"GET",
+          headers: {
+            Authorization: authToken,
+          }
+        })
+        if(newRes.ok){
+          const bankData=await newRes.json();
+          console.log(bankData);
+          console.log(bankData.account.username)
+          setUsername(bankData.account.username);
+          console.log(username)
+          setUpiID(`${bankData.account.username}@easyPay`);
+          const data = `Account Details : \n Account Holder : ${bankData.account.username} \n Bank : ${bankData.account.bank_name} \n Account_No : ${bankData.account.account_no}`;
+          setQRCodeData(data);
+          generateShareableLink(data);
+        }
+      }
+      else{
+        setUsername(data.user.username);
+        setAccount("***************");
+        setBank_name("Central Bank of India");
+      }
+      setLoading(false);
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+
+
   useEffect(() => {
-    const data = 'Your payment information or any other data';
-    setQRCodeData(data);
-    generateShareableLink(data);
-    setUpiID('kumarPankaj@okhdfcbank');
+    getDetails();
+    
   }, []);
 
   const generateShareableLink = (data) => {
@@ -38,7 +84,10 @@ const ReceiveMoney = () => {
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <SideBar />
       <div style={{ color: 'white', textAlign: 'center' }}>
-        {qrCodeData && (
+      <Typography variant="h4" style={{ color: '#ffffff', marginBottom: '20px',fontFamily:'times-new-roman' , marginTop:'1.2rem'}}>Recieve Money</Typography>
+        {loading ? (<p>Loading....</p>):(
+          <>
+          {qrCodeData && (
           <div>
             <QRCode value={qrCodeData} style={{width:'180px'}} />
             <p style={{fontSize:'1.3rem'}}>Scan this QR code to receive money</p>
@@ -78,6 +127,10 @@ const ReceiveMoney = () => {
         <label elevation={3} style={{ backgroundColor: 'transparent',border: '1px solid white', color: 'white', display: 'inline-flex', alignItems: 'center', padding: '0.5rem',borderRadius:'2px' }}>
           <p style={{ fontSize: '1.2rem', margin: '0' }}>{upiID}</p>
         </label>
+          </>
+        )
+        }
+        
       </div>
     </div>
   );

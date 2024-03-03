@@ -26,20 +26,27 @@ function App() {
     <BrowserRouter>
       {!isLoginPage && isLoggedIn && <Header/>}
       {!isLoginPage && isLoggedIn && <SideBar/>}
-      <Routes>
-        <Route path='/' element={<Login/>}/>
-        <Route path='/signup' element={<Signup/>}/>
-        <Route path='/logout' element={<LogOut/>}/>
-        <Route path='/Dashboard' element={<Home/>}/>
-        <Route path='/send-money' element={<SendMoney/>}/>
-        <Route path='/receive-money' element={<ReceiveMoney/>}/>
-        <Route path='/add-account' element={<AddAccount/>}/>
-        <Route path='/contact-us' element={<Contact/>}/>
-        <Route path='/support' element={<Support/>}/>
-        <Route path='/service' element={<Service/>}/>
-        <Route path='/security' element={<Security/>}/>
-        <Route path='/statement' element={<Statement/>}/>
-      </Routes>
+      {isLoggedIn && (
+        <Routes>
+          
+          <Route path='/logout' element={<LogOut/>}/>
+          <Route path='/Dashboard' element={<Home/>}/>
+          <Route path='/send-money' element={<SendMoney/>}/>
+          <Route path='/receive-money' element={<ReceiveMoney/>}/>
+          <Route path='/add-account' element={<AddAccount/>}/>
+          <Route path='/contact-us' element={<Contact/>}/>
+          <Route path='/support' element={<Support/>}/>
+          <Route path='/service' element={<Service/>}/>
+          <Route path='/security' element={<Security/>}/>
+          <Route path='/statement' element={<Statement/>}/>
+        </Routes>
+        )}
+        {!isLoggedIn && (
+          <Routes>
+          <Route path='/' element={<Login/>}/>
+          <Route path='/signup' element={<Signup/>}/>
+          </Routes>
+        )}
     </BrowserRouter>
   )
 }

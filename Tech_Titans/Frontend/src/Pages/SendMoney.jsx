@@ -1,21 +1,86 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SideBar from '../components/SideBar';
+import { useAuth } from '../store/auth';
+import { Typography } from '@mui/material';
 
 const SendMoney = () => {
   const [inputs, setInputs] = useState({
-    account: '',
-    receiver: '',
-    amount: '',
-    currency: 'USD' 
+    from_account: '',
+    to_account: '',
+    amount: 0,
+    currency: 'INR' 
   });
-  const accountNumbers = [
-    { name: "Central Bank Of India", number: "1234567890" },
-    { name: "Bank of Broda", number: "0987654321" },
-    { name: "HDFC Bank", number: "4567890123" },
-    { name: "ICICI Bank", number: "7890123456" },
-    { name: "Punjab National Bank", number: "3456789012" },
-    { name: "Axis Bank", number: "9012345678" }
-  ];
+  const {authToken}=useAuth();
+  const [acNo,setAcNo]=useState([]);
+  // const accountNumbers = [
+  //   { name: "Central Bank Of India", number: "1234567890" },
+  //   { name: "Bank of Broda", number: "0987654321" },
+  //   { name: "HDFC Bank", number: "4567890123" },
+  //   { name: "ICICI Bank", number: "7890123456" },
+  //   { name: "Punjab National Bank", number: "3456789012" },
+  //   { name: "Axis Bank", number: "9012345678" }
+  // ];
+  // const getAccountNo=async(data,i)=>{
+  //   try{
+  //     const newRes=await fetch(`http://localhost:4000/api/account/bank/${data.user.banks[i]._id}`,{
+  //         method:"GET",
+  //         headers: {
+  //           Authorization: authToken,
+  //         }
+  //       })
+  //       if(newRes.ok){
+  //         const bankData=await newRes.json();
+  //         // if(!acNo.includes(bankData.account.account_no)){
+  //         //   acNo.push(bankData.account.account_no);
+  //         //   setAcNo(acNo)
+  //         // }
+  //         acNo.push(bankData.account.account_no)
+  //       }
+  //   }
+  //   catch(err){
+  //     console.log(err);
+  //   }
+  // }
+  const getAccounts=async()=>{
+    try{
+      const response=await fetch("http://localhost:4000/api/account/getUserAccounts",{
+        method:"GET",
+        headers: {
+          Authorization: authToken,
+        }
+      })
+      if (response.ok) {
+        const data = await response.json();
+        // console.log(data.arrayOfObjects);
+        // const promises = data.user.banks.map((_, i) => getAccountNo(data, i));
+        // await Promise.all(promises);
+        // console.log(data[1].account_no)
+        let len=data.length
+        // console.log(len)
+        for(let i=0;i<len;i++){
+          // setAcNo([...acNo,data[i].account_no]);
+          acNo.push(data[i].account_no)
+          setAcNo(acNo)
+        }
+        // data.foreach((x)=>{
+        //   setAcNo([...acNo,data[0].account_no]);
+        // })
+
+      } else {
+        setAcNo(["***************"]);
+      }
+      
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+
+  useEffect(()=>{
+    setAcNo([]);
+    getAccounts();
+  },[]);
+  console.log(acNo);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputs(prevInputs => ({
@@ -23,29 +88,50 @@ const SendMoney = () => {
       [name]: value
     }));
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    delete inputs['currency'];
     console.log(inputs);
+    try{
+      const response=await fetch("http://localhost:4000/api/payments/makePayment",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":authToken
+      },
+      body:JSON.stringify(inputs)
+    })
+    if(response.ok){
+      console.log(response.message);
+    }
+    else{
+      console.log(response.message);
+    }
+    }
+    catch(err){
+      console.log(err);
+    }
     setInputs({
-      account: '',
-      receiver: '',
+      from_account: '',
+      to_account: '',
       amount: '',
-      currency: 'USD' 
+      currency: 'INR' 
     });
   };
 
   const handleCancel = () => {
     setInputs({
-      account: '',
-      receiver: '',
+      from_account: '',
+      to_account: '',
       amount: '',
-      currency: 'USD' 
+      currency: 'INR' 
     });
   };
-
+  console.log(acNo)
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center',marginLeft:'9rem' }}>
       <SideBar />
+      <Typography variant="h4" style={{ color: '#ffffff', marginBottom: '20px',fontFamily:'times-new-roman',marginTop:'2rem' }}>Send Money</Typography>
       <form onSubmit={handleSubmit}>
         <div style={{
           backgroundColor: 'inherit',
@@ -60,8 +146,8 @@ const SendMoney = () => {
           }}>
             <h3 style={{ textAlign: 'left' }}>Payment Method</h3>
             <select
-              name="account"
-              value={inputs.account}
+              name="from_account"
+              value={inputs.from_account}
               onChange={handleChange}
               style={{
                 padding: '8px',
@@ -70,10 +156,11 @@ const SendMoney = () => {
                 borderRadius: '5px',
               }}
             >
+              {console.log(acNo.length)}
               <option value="">Select an account</option>
-              {accountNumbers.map((account, index) => (
-                <option key={index} value={account.number}>
-                  {account.number}
+              {acNo.map((account, index) => (
+                <option key={index} value={account}>
+                  {account}
                 </option>
               ))}
             </select>
@@ -83,19 +170,20 @@ const SendMoney = () => {
             <input
               type="text"
               id="accountNo"
-              name="receiver"
-              value={inputs.receiver}
+              name="to_account"
+              value={inputs.to_account}
               onChange={handleChange}
               style={{
                 padding: '8px',
                 width: '480px',
                 border: 'none',
                 borderRadius: '5px',
-                alignContent:'left'
+                alignContent:'left',
+                color:'black'
               }}
             />
           </div>
-          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginTop: '20px' }}>
+          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginTop: '15px' }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <div className="amount-container" style={{ marginRight: '20px' }}>
                 <h3 style={{ textAlign: 'left' }}>Amount</h3>
@@ -126,9 +214,9 @@ const SendMoney = () => {
                     borderRadius: '5px',
                   }}
                 >
-                  <option value="USD">USD</option>
                   <option value="INR">INR</option>
-                  <option value="EURO">EURO</option>
+                  {/* <option value="USD">USD</option>
+                  <option value="EURO">EURO</option> */}
                 </select>
               </div>
             </div>

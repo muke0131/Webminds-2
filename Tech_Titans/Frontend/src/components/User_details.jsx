@@ -18,7 +18,6 @@ const User_details = () => {
       if(response.ok){
         const data=await response.json()
         console.log(data)
-        setUsername(data.user.username);
         const newRes=await fetch(`http://localhost:4000/api/account/bank/${data.user.banks[0]._id}`,{
           method:"GET",
           headers: {
@@ -28,11 +27,12 @@ const User_details = () => {
         if(newRes.ok){
           const bankData=await newRes.json();
           console.log(bankData);
+          setUsername(bankData.account.username);
           setAc(bankData.account.account_no);
         }
       }
       else{
-        setUsername("---------")
+        setUsername(data.user.username);
         setAc("***************")
       }
     }

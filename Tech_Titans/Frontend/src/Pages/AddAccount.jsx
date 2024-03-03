@@ -3,13 +3,17 @@ import React from 'react';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import SideBar from '../components/SideBar';
 import { useState } from 'react';
+import { Typography } from '@mui/material';
+import { useAuth } from '../store/auth';
 
 const AddAccount = () => {
   const [inputs, setInputs] = useState({
-    bank_name: 'Central Bank Of India',
+    username: '',
     account_no: '',
-    username: ''
+    bank_name: 'Central Bank Of India'
   });
+
+  const {authToken}=useAuth();
 
   const handleChange = (e) => {
     setInputs(prevState => ({
@@ -20,16 +24,22 @@ const AddAccount = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(inputs)
     try{
       const response=await fetch("http://localhost:4000/api/account/addBank",{
         method:"POST",
         headers:{
-          "Content-Type":"application-json"
+          "Content-Type":"application/json",
+          "Authorization":authToken
         },
         body:JSON.stringify(inputs)
       })
+      console.log(response)
       if(response.ok){
         console.log("Bank Added Successfully");
+      }
+      else{
+        console.log("Some error Occured");
       }
     }
     catch(err){
@@ -40,7 +50,8 @@ const AddAccount = () => {
   return (
     <div style={{ display: 'flex' }}>
       <SideBar />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{marginTop:"1.2rem"}}>
+      <Typography variant="h4" style={{ color: '#ffffff', marginBottom: '10px',fontFamily:'times-new-roman' ,textAlign:'center' , position:'relative' ,marginLeft:"9rem"}}>Add Bank Account</Typography>
         <div style={{
           backgroundColor: 'inherit',
           color: '#fff',
@@ -55,7 +66,7 @@ const AddAccount = () => {
             left: '50%',
             transform: 'translateX(-50%)',
             width: '500px',
-            height: '200px',
+            height: '180px',
           }} />
           <div className="select-bank" style={{
             display: 'inline-block',
@@ -121,7 +132,7 @@ const AddAccount = () => {
           </div>
           <button
             style={{
-              backgroundColor: '#8a2be2',
+              backgroundColor: '#3A833A',
               color: 'white',
               padding: '10px 20px',
               border: 'none',
