@@ -6,7 +6,6 @@ const makeTransaction = async (req, res, next) => {
 	const user = req.user;
 	const { from_account, to_account, amount } = req.body;
 	try {
-		
 		var from = await Account.findOne({ account_no: from_account });
 		var to = await Account.findOne({ account_no: to_account });
 		if (!from) {
@@ -19,18 +18,24 @@ const makeTransaction = async (req, res, next) => {
 				to.balance = to.balance + amount;
 				await from.save();
 				await to.save();
-                const tnx = await Transaction.create({from_name:from.username,from_account:from,to_name:to.username,to_account:to,amount:amount})
-                let reciever = await User.findOne({username:to.username});
-				let transactions = user.transactions
-                transactions.push(tnx);
-                user.transactions = transactions;
-                await user.save();
+				const tnx = await Transaction.create({
+					from_name: from.username,
+					from_account: from,
+					to_name: to.username,
+					to_account: to,
+					amount: amount,
+				});
+				let reciever = await User.findOne({ username: to.username });
+				let transactions = user.transactions;
+				transactions.push(tnx);
+				user.transactions = transactions;
+				await user.save();
 				reciever.transactions.push(tnx);
 				await reciever.save();
-                res.status(200).json({message:"Payment Successful",data:tnx});
-			}else{
-                res.status(400).json({message: "Payment Failed Not enough balance"});
-            }
+				res.status(200).json({ message: "Payment Successful", data: tnx });
+			} else {
+				res.status(400).json({ message: "Payment Failed Not enough balance" });
+			}
 		}
 	} catch (err) {
 		res.status(500).json({ msg: "Internal Server Error :" + err });
@@ -39,20 +44,25 @@ const makeTransaction = async (req, res, next) => {
 
 const getUserTransactions = async (req, res, next) => {
 	const user = req.user;
-	try{
-        const newUser = await User.findById(user._id)
-        const transactions = newUser.transactions
-		var trnxs = []
-		await Promise.all(transactions.map(async (tnx)=>{
-			var t = await Transaction.findById(tnx._id);
-			console.log(t);
-			await trnxs.push(t)
-		}))
-        res.status(200).json(trnxs);
-    }catch (err) {
+	try {
+		const newUser = await User.findById(user._id);
+		const transactions = newUser.transactions;
+		var trnxs = [];
+		await Promise.all(
+			transactions.map(async (tnx) => {
+				var t = await Transaction.findById(tnx._id);
+				if (t.from_name === user.username) {
+					t = { ...t._doc, status: "sent" };
+				} else {
+					t = { ...t._doc, status: "received" };
+				}
+				await trnxs.push(t);
+			})
+		);
+		res.status(200).json(trnxs);
+	} catch (err) {
 		res.status(500).json({ msg: "Internal Server Error :" + err });
 	}
-
 };
 
-module.exports = {makeTransaction,getUserTransactions};
+module.exports = { makeTransaction, getUserTransactions };
