@@ -2,7 +2,7 @@ const Account = require("../models/account-model");
 const User = require("../models/user-model");
 const Transaction = require("../models/transaction-model");
 
-const makeTransaction = async (req, res, next) => {
+const makeTransaction = async (req, res) => {
 	const user = req.user;
 	const { from_account, to_account, amount ,time} = req.body;
 	try {
@@ -26,13 +26,13 @@ const makeTransaction = async (req, res, next) => {
 				await user.save();
 				reciever.transactions.push(tnx);
 				await reciever.save();
-				res.status(200).json({ message: "Payment Successful", data: tnx });
+				return res.status(200).json({ message: "Payment Successful", data: tnx });
 			} else {
-				res.status(400).json({ message: "Payment Failed Not enough balance" });
+				return res.status(400).json({ message: "Payment Failed Not enough balance" });
 			}
 		}
 	} catch (err) {
-		res.status(500).json({ msg: "Internal Server Error :" + err });
+		return res.status(500).json({ msg: "Internal Server Error :" + err });
 	}
 };
 
@@ -54,9 +54,9 @@ const getUserTransactions = async (req, res, next) => {
 				// await trnxs.p
 			})
 		);
-		res.status(200).json(trnxs);
+		return res.status(200).json(trnxs);
 	} catch (err) {
-		res.status(500).json({ msg: "Internal Server Error :" + err });
+		return res.status(500).json({ msg: "Internal Server Error :" + err });
 	}
 };
 

@@ -1,18 +1,23 @@
 const User = require("../models/user-model");
 const Account = require("../models/account-model");
 
-const addNewBank = async (req, res, next) => {
+const addNewBank = async (req, res) => {
 	const user = req.user;
 	const { username, account_no, bank_name } = req.body;
 	try {
-		const account = await Account.findOne({
+		let account = await Account.findOne({
 			bank_name: bank_name,
 			account_no: account_no,
 		});
 		if (!account) {
-			return res
-				.status(404)
-				.json({ message: "Account with those details dont exist" });
+			// return res
+			// 	.status(404)
+			// 	.json({ message: "Account with those details dont exist" });
+			await Account.create({username,bank_name,account_no});
+			account = await Account.findOne({
+				bank_name: bank_name,
+				account_no: account_no,
+			});
 		}
 		if (account.username === username) {
 			try {
@@ -29,7 +34,7 @@ const addNewBank = async (req, res, next) => {
 			newBanks.push(account);
 			user.banks = newBanks;
 			const newUser = await user.save();
-			res
+			return res
 				.status(200)
 				.json({ message: "Account added successfully", banks: newBanks });
 		} else {
@@ -38,7 +43,7 @@ const addNewBank = async (req, res, next) => {
 				.json({ message: "You are not Authorized to add that account" });
 		}
 	} catch (err) {
-		res.status(500).json({ msg: "Internal Server Error :" + err });
+		return res.status(500).json({ msg: "Internal Server Error :" + err });
 	}
 };
 
