@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../store/auth';
-import {toast} from 'react-toastify'
 
 
 const UpcomingPayments = () => {
@@ -28,7 +27,7 @@ const UpcomingPayments = () => {
         })
         if(newRes.ok){
           const bankData=await newRes.json();
-          // console.log(bankData.account.balance);
+          console.log(bankData.account.balance);
           setBalance(bankData.account.balance);
         }
       }
@@ -37,7 +36,7 @@ const UpcomingPayments = () => {
       }
     }
     catch(err){
-      toast.error(err);
+      console.log(err);
     }
   }
   useEffect(()=>{
@@ -45,7 +44,7 @@ const UpcomingPayments = () => {
   },[getDetails])
   return (
     <div style={{
-      background: '#f5f5f5',
+      background: '#d8dde8',
       padding: '20px',
       borderRadius: '12px',
       marginTop: '20px',

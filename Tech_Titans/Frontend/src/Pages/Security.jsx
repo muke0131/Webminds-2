@@ -2,18 +2,13 @@ import React, { useState } from 'react';
 import SideBar from '../components/SideBar';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import {toast} from 'react-toastify'
-import { useAuth } from '../store/auth';
-import { useNavigate } from "react-router-dom";
+import {Typography} from '@mui/material'
 const Security = () => {
   const [inputs, setInputs] = useState({
     current_password: '',
     new_password: '',
     confirm_password: '',
   });
-  
-  const {authToken}=useAuth();
-  const navigate = useNavigate();
 
   const [showCurrentPassword, setShowCurrentPassword] = useState(false); 
   const [showNewPassword, setShowNewPassword] = useState(false); 
@@ -26,37 +21,10 @@ const Security = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if(inputs.confirm_password!==inputs.new_password){
-      toast.error("Confirm password does not match");
-    }
-    try
-    {
-      const response=await fetch("http://localhost:4000/api/auth/change",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "Authorization":authToken
-      },
-      body:JSON.stringify(inputs)
-    })
-    const data=await response.json();
-    console.log(data.success)
-    if(data.success===true){
-      // const data=await response.json();
-      setInputs({current_password:"",new_password:"",confirm_password:""});
-      toast.success('Password Changed Successfully!')
-      navigate("/logout");
-    }
-    else{
-      toast.error("Incorrect Password");
-    }
-  }
-  catch(err){
-    toast.error(err);
-  }
-};
+    console.log(inputs);
+  };
 
   return (
     <div style={{ display: 'flex' }}>
@@ -72,9 +40,9 @@ const Security = () => {
               position: 'relative',
             }}
           >
-            <h3 style={{ marginTop: '2rem', color: 'white', textAlign: 'left', fontSize: '1.4rem' }}>Change Password</h3>
+            <Typography variant="h4" style={{ textAlign:'center',color: 'black', marginBottom: '30px',fontFamily:'times-new-roman',marginTop:'1.2rem' }}>Change Password</Typography>
             <div className='current-password'>
-              <h3 style={{ textAlign: 'left' }}>Current Password</h3>
+              <h3 style={{ textAlign: 'left',color:'black' }}>Current Password</h3>
               <div style={{ position: 'relative' }}>
                 <input
                   type={showCurrentPassword ? 'text' : 'password'}
@@ -108,7 +76,7 @@ const Security = () => {
               </div>
             </div>
             <div className='new-password'>
-              <h3 style={{ textAlign: 'left' }}>New Password</h3>
+              <h3 style={{ textAlign: 'left',color:'black' }}>New Password</h3>
               <div style={{ position: 'relative' }}>
                 <input
                   type={showNewPassword ? 'text' : 'password'}
@@ -142,7 +110,7 @@ const Security = () => {
               </div>
             </div>
             <div className='current-password'>
-              <h3 style={{ textAlign: 'left' }}>Confirm Password</h3>
+              <h3 style={{ textAlign: 'left',color:'black' }}>Confirm Password</h3>
               <div style={{ position: 'relative' }}>
                 <input
                   type={showConfirmPassword ? 'text' : 'password'}

@@ -4,7 +4,6 @@ import QRCode from "react-qr-code";
 import SideBar from '../components/SideBar';
 import { Divider, Typography} from '@mui/material';
 import { useAuth } from '../store/auth';
-import {toast} from 'react-toastify'
 const ReceiveMoney = () => {
   const [loading,setLoading]=useState(true);
   const [qrCodeData, setQRCodeData] = useState('');
@@ -24,7 +23,7 @@ const ReceiveMoney = () => {
       })
       if(response.ok){
         const data=await response.json()
-        // console.log(data)
+        console.log(data)
         const newRes=await fetch(`http://localhost:4000/api/account/bank/${data.user.banks[0]._id}`,{
           method:"GET",
           headers: {
@@ -33,10 +32,10 @@ const ReceiveMoney = () => {
         })
         if(newRes.ok){
           const bankData=await newRes.json();
-          // console.log(bankData);
-          // console.log(bankData.account.username)
+          console.log(bankData);
+          console.log(bankData.account.username)
           setUsername(bankData.account.username);
-          // console.log(username)
+          console.log(username)
           setUpiID(`${bankData.account.username}@easyPay`);
           const data = `Account Details : \n Account Holder : ${bankData.account.username} \n Bank : ${bankData.account.bank_name} \n Account_No : ${bankData.account.account_no}`;
           setQRCodeData(data);
@@ -51,7 +50,7 @@ const ReceiveMoney = () => {
       setLoading(false);
     }
     catch(err){
-      toast.error(err);
+      console.log(err);
     }
   }
 
@@ -78,20 +77,20 @@ const ReceiveMoney = () => {
 
   const shareQRCode = () => {
     navigator.clipboard.writeText(shareableLink); 
-    toast.success('QR code link copied to clipboard');
+    alert('QR code link copied to clipboard');
   };
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <SideBar />
       <div style={{ color: 'white', textAlign: 'center' }}>
-      <Typography variant="h4" style={{ color: '#ffffff', marginBottom: '20px',fontFamily:'times-new-roman' , marginTop:'1.2rem'}}>Recieve Money</Typography>
+      <Typography variant="h4" style={{ color: 'black', marginBottom: '20px',fontFamily:'times-new-roman' , marginTop:'1.2rem'}}>Recieve Money</Typography>
         {loading ? (<p>Loading....</p>):(
           <>
           {qrCodeData && (
           <div>
             <QRCode value={qrCodeData} style={{width:'180px'}} />
-            <p style={{fontSize:'1.3rem'}}>Scan this QR code to receive money</p>
+            <p style={{fontSize:'1.3rem',color:'black'}}>Scan this QR code to receive money</p>
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
               <button
                 onClick={downloadQRCode}

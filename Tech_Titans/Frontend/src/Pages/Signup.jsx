@@ -4,7 +4,7 @@ import { Box, Typography, TextField, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import {useAuth} from "../store/auth";
 import { toast } from 'react-toastify';
-
+import logoImage from '../assets/easy-pay-logo.png'
 const Signup = () => {
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(inputs);
+    console.log(inputs);
     try{
       const response=await fetch("http://localhost:4000/api/auth/register",{
         method:'POST',
@@ -44,22 +44,26 @@ const Signup = () => {
           password:"",
         })
         navigate('/')
-        toast.success("Registration Successfull !")
+        toast.success('Registration Sucessful!')
       }
-      else{
-        const data=await response.json();
-        toast.error(data.msg);
+      else
+      {
+        toast.error('Invalid credentials!')
       }
     }
     catch(err){
-      toast.error(err);
+      console.log(err);
     }
   };
 
   return (
-    <div style={{ backgroundColor: 'inherit', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{backgroundColor: '#f907fc', backgroundImage: 'linear-gradient(315deg, #f907fc 0%, #05d6d9 74%)', height: '100vh', display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center', justifyContent: 'center'}}>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <img src={logoImage} alt="Logo" style={{ width: '400px', height: 'auto',borderRadius:'2rem' }} />
+    </div>
+      <div>
       <form onSubmit={handleSubmit}>
-        <Box maxWidth={450} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center" padding={3} borderRadius={5} boxShadow={3} bgcolor="white">
+        <Box maxWidth={420} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center" padding={3} borderRadius={5} boxShadow={3} bgcolor="white">
           <Typography variant='h4' textAlign="center" fontFamily="Times New Roman" color="black"  mb={3}>Register</Typography>
           <TextField label='Name' value={inputs.username} onChange={handleChange} name='username' margin='normal' type='text' required />
           <TextField label='Email' value={inputs.email} onChange={handleChange} name='email' margin='normal' type='email' required />
@@ -69,6 +73,7 @@ const Signup = () => {
           <Button sx={{color:'black'}} onClick={() => navigate("/")} fullWidth>Already registered? Please Login</Button>
         </Box>
       </form>
+      </div>
     </div>
   );
 };

@@ -11,7 +11,7 @@ import Transaction_table from '../components/Transaction_table';
 
 const linkStyles = {
   textDecoration: 'none',
-  color: 'inherit', 
+  color: 'white', 
 };
 
 const Home = () => {
@@ -21,25 +21,25 @@ const Home = () => {
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'left', marginLeft: '3rem' }}>
         <div style={{ display: 'flex' }}>
           <Link to="/send-money" style={linkStyles}>
-            <div style={{ background: 'gray', width: '170px', height: '170px', borderRadius: '15%', margin: '25px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+            <div style={{ background: 'linear-gradient(135deg, rgb(206, 159, 252) 10%, rgb(115, 103, 240) 100%)', width: '170px', height: '170px', borderRadius: '15%', margin: '25px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
               <PaymentIcon sx={{ fontSize: '6rem', color: 'white' }} />
               <h3>Send Money</h3>
             </div>
           </Link>
           <Link to="/receive-money" style={linkStyles}>
-            <div style={{ background: 'gray', width: '170px', height: '170px', borderRadius: '15%', margin: '25px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+            <div style={{ background: 'linear-gradient(135deg, rgb(206, 159, 252) 10%, rgb(115, 103, 240) 100%)', width: '170px', height: '170px', borderRadius: '15%', margin: '25px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
               <SyncAltIcon sx={{ fontSize: '6rem', color: 'white' }} />
               <h3>Receive Money</h3>
             </div>
           </Link>
           <Link to="/add-account" style={linkStyles}>
-            <div style={{ background: 'gray', width: '170px', height: '170px', borderRadius: '15%', margin: '25px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+            <div style={{ background: 'linear-gradient(135deg, rgb(206, 159, 252) 10%, rgb(115, 103, 240) 100%)', width: '170px', height: '170px', borderRadius: '15%', margin: '25px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
               <AccountBalanceIcon sx={{ fontSize: '6rem', color: 'white' }} />
               <h3>Add Bank Account</h3>
             </div>
           </Link>
           <Link to="/statement" style={linkStyles}>
-            <div style={{ background: 'gray', width: '170px', height: '170px', borderRadius: '15%', margin: '25px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+            <div style={{ background: 'linear-gradient(135deg, rgb(206, 159, 252) 10%, rgb(115, 103, 240) 100%)', width: '170px', height: '170px', borderRadius: '15%', margin: '25px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
               <ListAltIcon sx={{ fontSize: '6rem', color: 'white', paddingTop: '1rem' }} />
               <h3>Balance And Statement</h3>
             </div>

@@ -2,15 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table, TableHead, TableBody, TableRow, TableCell, Typography } from '@mui/material';
 import SideBar from '../components/SideBar';
 import { useAuth } from '../store/auth';
-import {toast} from 'react-toastify';
 
-// const transactions = [
-//     { type: 'Payment', dateTime: '2024-03-01 10:30 AM', amount: '$50.00', status: 'Completed' },
-//     { type: 'Transfer', dateTime: '2024-02-28 03:15 PM', amount: '$100.00', status: 'Pending' },
-//     { type: 'Payment', dateTime: '2024-02-27 09:45 AM', amount: '$75.00', status: 'Completed' },
-//     { type: 'Transfer', dateTime: '2024-02-26 02:30 PM', amount: '$150.00', status: 'Canceled' },
-//     { type: 'Payment', dateTime: '2024-02-25 11:20 AM', amount: '$200.00', status: 'Pending' }
-//   ];
   
 
 const Statement = () => {
@@ -36,10 +28,11 @@ const Statement = () => {
         }
       })
       const data=await response.json()
+      console.log(data)
       setTransactions(data);
     }
     catch(err){
-      toast.error(err);
+      console.log(err);
     }
   }
   useEffect(()=>{
@@ -49,7 +42,7 @@ const Statement = () => {
     <div style={{display:'flex'}}>
       <SideBar/>
       <div style={{ width: '100%' }}>
-      <Typography variant="h4" style={{ textAlign:'center',color: '#ffffff', marginBottom: '30px',fontFamily:'times-new-roman',marginTop:'1.2rem' }}>Statement and Balance</Typography>
+      <Typography variant="h4" style={{ textAlign:'center',color: 'black', marginBottom: '30px',fontFamily:'times-new-roman',marginTop:'1.2rem' }}>Statement and Balance</Typography>
       <Table style={{ width: '100%' }}>
         <TableHead>
           <TableRow style={{ background: 'black' }}>
