@@ -5,6 +5,7 @@ import SideBar from '../components/SideBar';
 import { useState } from 'react';
 import { Typography } from '@mui/material';
 import { useAuth } from '../store/auth';
+import {toast} from 'react-toastify';
 
 const AddAccount = () => {
   const [inputs, setInputs] = useState({
@@ -24,9 +25,9 @@ const AddAccount = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs)
+    // console.log(inputs)
     try{
-      const response=await fetch("https://webminds-2.onrender.com/api/account/addBank",{
+      const response=await fetch("http://localhost:4000/api/account/addBank",{
         method:"POST",
         headers:{
           "Content-Type":"application/json",
@@ -34,16 +35,21 @@ const AddAccount = () => {
         },
         body:JSON.stringify(inputs)
       })
-      console.log(response)
+      // console.log(response)
       if(response.ok){
-        console.log("Bank Added Successfully");
+        toast.success("Bank Added Successfully");
+        setInputs({
+          username: '',
+          account_no: '',
+          bank_name: 'Central Bank Of India'
+        })
       }
       else{
-        console.log("Some error Occured");
+        toast.error("Some error Occured");
       }
     }
     catch(err){
-      console.log(err);
+      toast.error(err);
     }
   };
 

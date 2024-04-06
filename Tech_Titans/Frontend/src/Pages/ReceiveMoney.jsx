@@ -4,6 +4,7 @@ import QRCode from "react-qr-code";
 import SideBar from '../components/SideBar';
 import { Divider, Typography} from '@mui/material';
 import { useAuth } from '../store/auth';
+import {toast} from 'react-toastify'
 const ReceiveMoney = () => {
   const [loading,setLoading]=useState(true);
   const [qrCodeData, setQRCodeData] = useState('');
@@ -15,7 +16,7 @@ const ReceiveMoney = () => {
   const {authToken}=useAuth();
   const getDetails=async ()=>{
     try{
-      const response=await fetch("https://webminds-2.onrender.com/api/auth/user",{
+      const response=await fetch("http://localhost:4000/api/auth/user",{
         method:"GET",
         headers: {
           Authorization: authToken,
@@ -23,8 +24,8 @@ const ReceiveMoney = () => {
       })
       if(response.ok){
         const data=await response.json()
-        console.log(data)
-        const newRes=await fetch(`https://webminds-2.onrender.com/api/account/bank/${data.user.banks[0]._id}`,{
+        // console.log(data)
+        const newRes=await fetch(`http://localhost:4000/api/account/bank/${data.user.banks[0]._id}`,{
           method:"GET",
           headers: {
             Authorization: authToken,
@@ -32,10 +33,10 @@ const ReceiveMoney = () => {
         })
         if(newRes.ok){
           const bankData=await newRes.json();
-          console.log(bankData);
-          console.log(bankData.account.username)
+          // console.log(bankData);
+          // console.log(bankData.account.username)
           setUsername(bankData.account.username);
-          console.log(username)
+          // console.log(username)
           setUpiID(`${bankData.account.username}@easyPay`);
           const data = `Account Details : \n Account Holder : ${bankData.account.username} \n Bank : ${bankData.account.bank_name} \n Account_No : ${bankData.account.account_no}`;
           setQRCodeData(data);
@@ -50,7 +51,7 @@ const ReceiveMoney = () => {
       setLoading(false);
     }
     catch(err){
-      console.log(err);
+      toast.error(err);
     }
   }
 
@@ -77,7 +78,7 @@ const ReceiveMoney = () => {
 
   const shareQRCode = () => {
     navigator.clipboard.writeText(shareableLink); 
-    alert('QR code link copied to clipboard');
+    toast.success('QR code link copied to clipboard');
   };
 
   return (

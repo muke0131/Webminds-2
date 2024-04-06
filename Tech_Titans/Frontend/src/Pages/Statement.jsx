@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table, TableHead, TableBody, TableRow, TableCell, Typography } from '@mui/material';
 import SideBar from '../components/SideBar';
 import { useAuth } from '../store/auth';
+import {toast} from 'react-toastify';
 
 // const transactions = [
 //     { type: 'Payment', dateTime: '2024-03-01 10:30 AM', amount: '$50.00', status: 'Completed' },
@@ -28,18 +29,17 @@ const Statement = () => {
 
   const getTransactions=async()=>{
     try{
-      const response=await fetch("https://webminds-2.onrender.com/api/payments/transactions",{
+      const response=await fetch("http://localhost:4000/api/payments/transactions",{
         method:"GET",
         headers:{
           "Authorization":authToken
         }
       })
       const data=await response.json()
-      console.log(data)
       setTransactions(data);
     }
     catch(err){
-      console.log(err);
+      toast.error(err);
     }
   }
   useEffect(()=>{

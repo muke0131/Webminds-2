@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Box, Typography, TextField, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import {useAuth} from "../store/auth";
+import { toast } from 'react-toastify';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -24,9 +25,9 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs);
+    // console.log(inputs);
     try{
-      const response=await fetch("https://webminds-2.onrender.com/api/auth/register",{
+      const response=await fetch("http://localhost:4000/api/auth/register",{
         method:'POST',
         headers:{
           "Content-Type":"application/json",
@@ -43,10 +44,15 @@ const Signup = () => {
           password:"",
         })
         navigate('/')
+        toast.success("Registration Successfull !")
+      }
+      else{
+        const data=await response.json();
+        toast.error(data.msg);
       }
     }
     catch(err){
-      console.log(err);
+      toast.error(err);
     }
   };
 

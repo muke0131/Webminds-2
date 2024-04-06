@@ -17,6 +17,8 @@ import Signup from './Pages/Signup'
 import LogOut from './Pages/LogOut'
 import Header from './components/Header'
 import { useAuth } from './store/auth'
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import AddBankAcc from './Pages/AddBankAcc'
 
 function App() {
@@ -40,12 +42,11 @@ function App() {
           <Route path='/service' element={<Service/>}/>
           <Route path='/security' element={<Security/>}/>
           <Route path='/statement' element={<Statement/>}/>
-        
           <Route path='/' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/bank' element={<AddBankAcc/>}/>
         </Routes>
-       
+        <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable style={{marginTop:"2rem"}} />
     </BrowserRouter>
   )
 }

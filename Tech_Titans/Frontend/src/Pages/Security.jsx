@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import SideBar from '../components/SideBar';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import {toast} from 'react-toastify'
+import { useAuth } from '../store/auth';
+import { useNavigate } from "react-router-dom";
 const Security = () => {
   const [inputs, setInputs] = useState({
     current_password: '',
     new_password: '',
     confirm_password: '',
   });
+  
+  const {authToken}=useAuth();
+  const navigate = useNavigate();
 
   const [showCurrentPassword, setShowCurrentPassword] = useState(false); 
   const [showNewPassword, setShowNewPassword] = useState(false); 
@@ -20,10 +26,37 @@ const Security = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs);
-  };
+    if(inputs.confirm_password!==inputs.new_password){
+      toast.error("Confirm password does not match");
+    }
+    try
+    {
+      const response=await fetch("http://localhost:4000/api/auth/change",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":authToken
+      },
+      body:JSON.stringify(inputs)
+    })
+    const data=await response.json();
+    console.log(data.success)
+    if(data.success===true){
+      // const data=await response.json();
+      setInputs({current_password:"",new_password:"",confirm_password:""});
+      toast.success('Password Changed Successfully!')
+      navigate("/logout");
+    }
+    else{
+      toast.error("Incorrect Password");
+    }
+  }
+  catch(err){
+    toast.error(err);
+  }
+};
 
   return (
     <div style={{ display: 'flex' }}>

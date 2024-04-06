@@ -3,6 +3,7 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import SideBar from '../components/SideBar';
 import { useState } from 'react';
 import { Typography } from '@mui/material';
+import {toast} from 'react-toastify';
 
 const AddBankAcc = () => {
   const [inputs, setInputs] = useState({
@@ -22,7 +23,7 @@ const AddBankAcc = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const response=await fetch("https://webminds-2.onrender.com/api/account/admin/createAccount",{
+      const response=await fetch("http://localhost:4000/api/account/admin/createAccount",{
         method:'POST',
         headers:{
           "Content-Type":"application/json"
@@ -30,11 +31,20 @@ const AddBankAcc = () => {
         body:JSON.stringify(inputs)
       })
       if(response.ok){
-        console.log("Bank Added Successfully");
+        toast.success("Bank Added Successfully");
       }
+      else{
+        toast.error("Some error ocurred !");
+      }
+      setInputs({
+        bank_name: 'Central Bank Of India',
+        account_no: '',
+        username: '',
+        balance:''
+      })
     }
     catch(err){
-      console.log(err);
+      toast.error(err);
     }
   };
 
