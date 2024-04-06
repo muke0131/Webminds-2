@@ -1,19 +1,17 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import SideBar from '../components/SideBar';
-import { useState } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, TextField, Button, MenuItem, Box } from '@mui/material';
 import { useAuth } from '../store/auth';
 
 const AddAccount = () => {
   const [inputs, setInputs] = useState({
     username: '',
     account_no: '',
-    bank_name: 'Central Bank Of India'
+    bank_name: ''
   });
 
-  const {authToken}=useAuth();
+  const { authToken } = useAuth();
 
   const handleChange = (e) => {
     setInputs(prevState => ({
@@ -24,135 +22,171 @@ const AddAccount = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs)
-    try{
-      const response=await fetch("http://localhost:4000/api/account/addBank",{
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json",
-          "Authorization":authToken
+    try {
+      const response = await fetch("http://localhost:4000/api/account/addBank", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": authToken
         },
-        body:JSON.stringify(inputs)
-      })
-      console.log(response)
-      if(response.ok){
+        body: JSON.stringify(inputs)
+      });
+      if (response.ok) {
         alert("Bank Added Successfully");
         setInputs({
           username: '',
           account_no: '',
           bank_name: 'Central Bank Of India'
         })
-      }
-      else{
-        alert("Some error Occured");
+      } else {
+        alert("Some error Occurred");
       }
     }
-    catch(err){
+    catch (err) {
       console.log(err);
     }
   };
-
+  const handleCancel = () => {
+    setInputs({
+      username: '',
+    account_no: '',
+    bank_name: ''
+    });
+  };
   return (
-    <div style={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex' }}>
       <SideBar />
-      <form onSubmit={handleSubmit} style={{marginTop:"1.2rem"}}>
-      <Typography variant="h4" style={{ color: 'black', marginBottom: '10px',fontFamily:'times-new-roman' ,textAlign:'center' , position:'relative' ,marginLeft:"9rem"}}>Add Bank Account</Typography>
-        <div style={{
-          backgroundColor: 'inherit',
-          color: 'black',
-          padding: '50px',
-          textAlign: 'center',
-          position: 'relative',
-          marginLeft: '10rem'
-        }}>
-          <AccountBalanceIcon style={{
-            position: 'absolute',
-            top: '30px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '500px',
-            height: '180px',
-          }} />
-          <div className="select-bank" style={{
-            display: 'inline-block',
-            marginTop: '200px',
-          }}>
-            <h3>Select Bank</h3>
-            <select
+      <form onSubmit={handleSubmit} style={{ marginTop: "1.2rem" }}>
+        <Typography variant="h4" style={{ color: 'black', marginBottom: '10px', fontFamily: 'times-new-roman', textAlign: 'center', position: 'relative', marginLeft: "9rem" }}>Add Bank Account</Typography>
+        <Box
+          sx={{
+            backgroundColor: 'inherit',
+            color: 'black',
+            padding: '50px',
+            textAlign: 'center',
+            position: 'relative',
+            marginLeft: '10rem',
+            width:'500px'
+          }}
+        >
+          <AccountBalanceIcon
+            sx={{
+              position: 'absolute',
+              top: '30px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '500px',
+              height: '180px',
+            }}
+          />
+          <Box
+            className="select-bank"
+            sx={{
+              display: 'inline-block',
+              marginTop: '200px',
+            }}
+          >
+            <TextField
+              select
+              fullWidth
               name="bank_name"
+              label='Select bank'
               value={inputs.bank_name}
               onChange={handleChange}
-              style={{
-                padding: '8px',
-                width: '500px',
-                border: 'none',
-                borderRadius: '5px',
+              variant="outlined"
+              sx={{
+                textAlign:'left',
+                width:'500px'
               }}
             >
-              <option value="Central Bank Of India">Central Bank Of India</option>
-              <option value="Bank of Broda">Bank of Broda</option>
-              <option value="HDFC">HDFC Bank</option>
-              <option value="ICICI">ICICI Bank</option>
-              <option value="Punjab National Bank">Punjab National Bank</option>
-              <option value="Axis Bank">Axis Bank</option>
-            </select>
-          </div>
-          <div className="account-no" style={{
-            display: 'block',
-            marginTop: '40px',
-          }}>
-            <h3>Enter Account Number</h3>
-            <input
+              <MenuItem value="Central Bank Of India">Central Bank Of India</MenuItem>
+              <MenuItem value="Bank of Broda">Bank of Baroda</MenuItem>
+              <MenuItem value="HDFC">HDFC Bank</MenuItem>
+              <MenuItem value="ICICI">ICICI Bank</MenuItem>
+              <MenuItem value="Punjab National Bank">Punjab National Bank</MenuItem>
+              <MenuItem value="Axis Bank">Axis Bank</MenuItem>
+            </TextField>
+          </Box>
+          <Box
+            className="account-no"
+            sx={{
+              display: 'block',
+              marginTop: '40px',
+            }}
+          >
+            <TextField
+              fullWidth
               type="text"
               id="accountNo"
+              label='Account Number'
               name="account_no"
               value={inputs.account_no}
               onChange={handleChange}
-              style={{
-                padding: '8px',
-                width: '490px',
-                border: 'none',
-                borderRadius: '5px',
+              variant="outlined"
+              sx={{
+                textAlign:'left'
               }}
             />
-          </div>
-          <div className="account-holder" style={{
-            display: 'block',
-            marginTop: '40px',
-          }}>
-            <h3>Enter Account Holder</h3>
-            <input
+          </Box>
+          <Box
+            className="account-holder"
+            sx={{
+              display: 'block',
+              marginTop: '40px',
+            }}
+          >
+            <TextField
+            fullWidth
               type="text"
               id="username"
               name="username"
+              label='Account Holder'
               value={inputs.username}
               onChange={handleChange}
-              style={{
-                padding: '8px',
-                width: '490px',
-                border:'none',
-                borderRadius: '5px',
+              variant="outlined"
+              sx={{
+                textAlign:'left'
               }}
             />
-          </div>
-          <button
-            style={{
-              backgroundColor: '#3A833A',
-              color: 'white',
-              padding: '10px 20px',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer',
-              marginTop: '40px',
-            }}
-            type="submit"
-          >
-            ADD
-          </button>
-        </div>
+          </Box>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '4rem' }}>
+              <button
+                onClick={handleCancel}
+                style={{
+                  padding: '10px 20px',
+                  backgroundColor: '#E97451',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '5px',
+                  cursor: 'pointer',
+                  marginRight: '5rem',
+                  fontSize: '1.2rem',
+                  fontFamily: 'serif'
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                style={{
+                  padding: '10px 20px',
+                  backgroundColor: '#3A833A',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  cursor: 'pointer',
+                  fontSize: '1.2rem',
+                  fontFamily: 'serif',
+                }}
+                type="submit"
+              >
+                Confirm
+              </button>
+            </div>
+        </Box>
       </form>
-    </div>
+    </Box>
   );
 };
 
 export default AddAccount;
+

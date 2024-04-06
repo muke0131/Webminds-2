@@ -8,6 +8,7 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import User_details from '../components/User_details';
 import UpcomingPayments from '../components/Upcoming_payments';
 import Transaction_table from '../components/Transaction_table';
+import LineChart from '../components/LineChart';
 
 const linkStyles = {
   textDecoration: 'none',
@@ -45,8 +46,8 @@ const Home = () => {
             </div>
           </Link>
         </div>
-        <div style={{display:'flex',justifyContent:'space-between'}}>
-        <User_details/>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginTop:"2%"}}>
+        <LineChart/>
         <UpcomingPayments/>
         </div>
         <div>

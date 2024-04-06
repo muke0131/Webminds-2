@@ -10,8 +10,6 @@ const ReceiveMoney = () => {
   const [shareableLink, setShareableLink] = useState('');
   const [upiID, setUpiID] = useState('');
   const [username, setUsername] = useState('');
-  const [account, setAccount] = useState('');
-  const [bank_name, setBank_name] = useState('');
   const {authToken}=useAuth();
   const getDetails=async ()=>{
     try{
@@ -32,11 +30,9 @@ const ReceiveMoney = () => {
         })
         if(newRes.ok){
           const bankData=await newRes.json();
-          console.log(bankData);
-          console.log(bankData.account.username)
           setUsername(bankData.account.username);
-          console.log(username)
-          setUpiID(`${bankData.account.username}@easyPay`);
+          const cleanedUsername = bankData.account.username.split(' ').join('_');
+          setUpiID(`${cleanedUsername}@easyPay`);
           const data = `Account Details : \n Account Holder : ${bankData.account.username} \n Bank : ${bankData.account.bank_name} \n Account_No : ${bankData.account.account_no}`;
           setQRCodeData(data);
           generateShareableLink(data);
@@ -81,7 +77,7 @@ const ReceiveMoney = () => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <div style={{ display: 'flex', justifyContent: 'center',marginBottom:'2rem' }}>
       <SideBar />
       <div style={{ color: 'white', textAlign: 'center' }}>
       <Typography variant="h4" style={{ color: 'black', marginBottom: '20px',fontFamily:'times-new-roman' , marginTop:'1.2rem'}}>Recieve Money</Typography>
@@ -122,10 +118,10 @@ const ReceiveMoney = () => {
             </div>
           </div>
         )}
-        <Divider style={{backgroundColor: 'white',margin:'2rem',width:'50rem'}}/>
-        <h2 style={{ color: 'white', marginBottom: '1rem' }}>Receive Money through UPI ID</h2>
-        <label elevation={3} style={{ backgroundColor: 'transparent',border: '1px solid white', color: 'white', display: 'inline-flex', alignItems: 'center', padding: '0.5rem',borderRadius:'2px' }}>
-          <p style={{ fontSize: '1.2rem', margin: '0' }}>{upiID}</p>
+        <Divider style={{backgroundColor: 'black',margin:'2rem',width:'50rem'}}/>
+        <Typography variant='h5' fontFamily={'times-new-roman'} sx={{color:'black',marginBottom:'1rem'}}>Receive Money through UPI ID</Typography>
+        <label elevation={3} style={{ backgroundColor: 'transparent',border: '1px solid black', color: 'black', display: 'inline-flex', alignItems: 'center', padding: '0.5rem',borderRadius:'2px' }}>
+          <p style={{ fontSize: '1.2rem' }}>{upiID}</p>
         </label>
           </>
         )
