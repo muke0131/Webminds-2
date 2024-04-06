@@ -12,11 +12,7 @@ const Support = () => {
     },
     {
       question: 'How to find UPI ID?',
-      answer: 'To find your UPI ID:\n1. Open your banking app.\n2. Go to the UPI section.\n3. Look for the option to view your UPI ID or profile.\n4. Your UPI ID should be displayed on the screen.'
-    },
-    {
-      question: 'How to check transaction status?',
-      answer: 'To check the status of a UPI transaction:\n1. Open your banking app.\n2. Go to the UPI section.\n3. Look for the option to view transaction history.\n4. Find the transaction you want to check and view its status.'
+      answer: 'To find your UPI ID:\n1. Open your banking app.\n2. Go to the receive money section.\n3.Your UPI ID should be displayed on the screen.'
     },
     {
       question: 'Transaction Limits',
@@ -24,7 +20,7 @@ const Support = () => {
     },
     {
       question: 'How to link multiple bank accounts to UPI?',
-      answer: 'To link multiple bank accounts to UPI, follow these steps:\n1. Open your banking app.\n2. Go to the UPI section.\n3. Look for the option to add a new bank account.\n4. Select your bank and follow the on-screen instructions to link the account to UPI.'
+      answer: 'To link multiple bank accounts to UPI, follow these steps:\n1. Open your banking app.\n2. Go to the add bank account section.\n3.Select your bank and follow the on-screen instructions to link the account to UPI.'
     },
     {
       question: 'What to do if UPI transaction fails?',
@@ -35,8 +31,8 @@ const Support = () => {
       answer: 'Yes, UPI is considered safe for online transactions. It uses advanced encryption and authentication measures to ensure the security of transactions. However, it is essential to follow best practices such as not sharing your UPI PIN with anyone and using secure networks for transactions.'
     },
     {
-      question: 'How to reset UPI PIN?',
-      answer: 'To reset your UPI PIN, follow these steps:\n1. Open your banking app.\n2. Go to the UPI section.\n3. Look for the option to reset your UPI PIN.\n4. Follow the on-screen instructions to verify your identity and set a new UPI PIN.'
+      question: 'How to change password?',
+      answer: 'To reset your password, follow these steps:\n1. Open your banking app.\n2. Go to the security settings.\n3. Change the password by verifying old password and providing the new password.'
     },
     {
       question: 'What is the validity of UPI transaction?',

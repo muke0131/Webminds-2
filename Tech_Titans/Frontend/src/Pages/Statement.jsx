@@ -11,11 +11,11 @@ const Statement = () => {
   const getStatusColor = (status) => {
     switch (status.toLowerCase()) {
       case 'received':
-        return ' #00FF00'; 
+        return ' #4CAF50'; 
       case 'sent':
         return '#f44336';  
       default:
-        return '#fff'; 
+        return 'black'; 
     }
   };
 
@@ -68,9 +68,9 @@ const Statement = () => {
     return (
         <TableRow key={index}>
             <TableCell sx={{ color: getStatusColor(transaction.status), borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{transaction.status}</TableCell>
-            <TableCell sx={{ color: 'white', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{formattedDate}</TableCell>
-            <TableCell sx={{ color: 'white', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{transaction.amount}</TableCell>
-            <TableCell sx={{ color:'white', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{transaction.status=="sent"?transaction.to_name:transaction.from_name}</TableCell>
+            <TableCell sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{formattedDate}</TableCell>
+            <TableCell sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{transaction.amount}</TableCell>
+            <TableCell sx={{ color:'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{transaction.status=="sent"?transaction.to_name:transaction.from_name}</TableCell>
         </TableRow>
     );
 })}
