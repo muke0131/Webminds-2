@@ -3,8 +3,7 @@ import SideBar from '../components/SideBar';
 import { useAuth } from '../store/auth';
 import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import {toast} from 'react-toastify';
-
+import {toast} from 'react-toastify'
 const SendMoney = () => {
   const navigate=useNavigate()
   const [inputs, setInputs] = useState({
@@ -26,17 +25,20 @@ const SendMoney = () => {
       if (response.ok) {
         const data = await response.json();
         let len=data.length
+        // console.log(len)
         for(let i=0;i<len;i++){
+          // setAcNo([...acNo,data[i].account_no]);
           acNo.push(data[i].account_no)
           setAcNo(acNo)
         }
+
       } else {
         setAcNo(["***************"]);
       }
       
     }
     catch(err){
-      toast.error(err);
+      console.log(err);
     }
   }
 
@@ -44,7 +46,7 @@ const SendMoney = () => {
     setAcNo([]);
     getAccounts();
   },[]);
-  // console.log(acNo);
+  console.log(acNo);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputs(prevInputs => ({
@@ -55,7 +57,7 @@ const SendMoney = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     delete inputs['currency'];
-    // console.log(inputs);
+    console.log(inputs);
     try{
       const response=await fetch("http://localhost:4000/api/payments/makePayment",{
       method:"POST",
@@ -66,17 +68,15 @@ const SendMoney = () => {
       body:JSON.stringify(inputs)
     })
     if(response.ok){
-      // console.log(response.message);
       navigate('/Dashboard')
-      toast.success("Payment Successfull !! ")
+      toast.success('Payment Successfull!')
     }
     else{
-      // console.log(response.message);
-      toast.error("Some error Occured !!")
+      toast.error('Some error occured!')
     }
     }
     catch(err){
-      toast.error(err);
+      console.log(err);
     }
     setInputs({
       from_account: '',
@@ -97,7 +97,7 @@ const SendMoney = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center',marginLeft:'9rem' }}>
       <SideBar />
-      <Typography variant="h4" style={{ color: '#ffffff', marginBottom: '20px',fontFamily:'times-new-roman',marginTop:'2rem' }}>Send Money</Typography>
+      <Typography variant="h4" style={{ textAlign:'center',color: 'black', marginBottom: '30px',fontFamily:'times-new-roman',marginTop:'1.2rem' }}>Send Money</Typography>
       <form onSubmit={handleSubmit}>
         <div style={{
           backgroundColor: 'inherit',
@@ -110,7 +110,7 @@ const SendMoney = () => {
             display: 'inline-block',
             marginTop: '20px',
           }}>
-            <h3 style={{ textAlign: 'left' }}>Payment Method</h3>
+            <h3 style={{ textAlign: 'left',color:'black' }}>Payment Method</h3>
             <select
               name="from_account"
               value={inputs.from_account}
@@ -122,7 +122,7 @@ const SendMoney = () => {
                 borderRadius: '5px',
               }}
             >
-              {/* {console.log(acNo.length)} */}
+              {console.log(acNo.length)}
               <option value="">Select an account</option>
               {acNo.map((account, index) => (
                 <option key={index} value={account}>
@@ -132,7 +132,7 @@ const SendMoney = () => {
             </select>
           </div>
           <div className="account-no">
-            <h3 style={{textAlign:'left' }}>Receiver Account Number</h3>
+            <h3 style={{textAlign:'left',color:'black' }}>Receiver Account Number</h3>
             <input
               type="text"
               id="accountNo"
@@ -145,14 +145,14 @@ const SendMoney = () => {
                 border: 'none',
                 borderRadius: '5px',
                 alignContent:'left',
-                color:'black'
+                color:'black',
               }}
             />
           </div>
           <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginTop: '15px' }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <div className="amount-container" style={{ marginRight: '20px' }}>
-                <h3 style={{ textAlign: 'left' }}>Amount</h3>
+                <h3 style={{ textAlign: 'left',color:'black' }}>Amount</h3>
                 <input
                   type="text"
                   id="Amount"
@@ -168,7 +168,7 @@ const SendMoney = () => {
                 />
               </div>
               <div className="currency-select" style={{ marginRight: '20px' }}>
-                <h3 style={{ textAlign: 'left' }}>Currency</h3>
+                <h3 style={{ textAlign: 'left' ,color:'black'}}>Currency</h3>
                 <select
                   name="currency"
                   value={inputs.currency}
@@ -181,8 +181,6 @@ const SendMoney = () => {
                   }}
                 >
                   <option value="INR">INR</option>
-                  {/* <option value="USD">USD</option>
-                  <option value="EURO">EURO</option> */}
                 </select>
               </div>
             </div>

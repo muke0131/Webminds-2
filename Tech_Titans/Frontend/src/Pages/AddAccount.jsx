@@ -5,7 +5,6 @@ import SideBar from '../components/SideBar';
 import { useState } from 'react';
 import { Typography } from '@mui/material';
 import { useAuth } from '../store/auth';
-import {toast} from 'react-toastify';
 
 const AddAccount = () => {
   const [inputs, setInputs] = useState({
@@ -25,7 +24,7 @@ const AddAccount = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(inputs)
+    console.log(inputs)
     try{
       const response=await fetch("http://localhost:4000/api/account/addBank",{
         method:"POST",
@@ -35,9 +34,9 @@ const AddAccount = () => {
         },
         body:JSON.stringify(inputs)
       })
-      // console.log(response)
+      console.log(response)
       if(response.ok){
-        toast.success("Bank Added Successfully");
+        alert("Bank Added Successfully");
         setInputs({
           username: '',
           account_no: '',
@@ -45,11 +44,11 @@ const AddAccount = () => {
         })
       }
       else{
-        toast.error("Some error Occured");
+        alert("Some error Occured");
       }
     }
     catch(err){
-      toast.error(err);
+      console.log(err);
     }
   };
 
@@ -57,10 +56,10 @@ const AddAccount = () => {
     <div style={{ display: 'flex' }}>
       <SideBar />
       <form onSubmit={handleSubmit} style={{marginTop:"1.2rem"}}>
-      <Typography variant="h4" style={{ color: '#ffffff', marginBottom: '10px',fontFamily:'times-new-roman' ,textAlign:'center' , position:'relative' ,marginLeft:"9rem"}}>Add Bank Account</Typography>
+      <Typography variant="h4" style={{ color: 'black', marginBottom: '10px',fontFamily:'times-new-roman' ,textAlign:'center' , position:'relative' ,marginLeft:"9rem"}}>Add Bank Account</Typography>
         <div style={{
           backgroundColor: 'inherit',
-          color: '#fff',
+          color: 'black',
           padding: '50px',
           textAlign: 'center',
           position: 'relative',
@@ -131,7 +130,7 @@ const AddAccount = () => {
               style={{
                 padding: '8px',
                 width: '490px',
-                border: 'none',
+                border:'none',
                 borderRadius: '5px',
               }}
             />

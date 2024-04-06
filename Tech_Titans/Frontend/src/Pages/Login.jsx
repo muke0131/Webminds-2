@@ -3,7 +3,7 @@ import { Box, Typography, TextField, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import {useAuth} from "../store/auth"
 import { toast } from 'react-toastify';
-
+import logoImage from '../assets/easy-pay-logo.png'
 const Login = () => {
   const navigate = useNavigate();
   const {storeToken}=useAuth();
@@ -39,25 +39,31 @@ const Login = () => {
         toast.success('Login Successful!')
       }
       else{
-        toast.error("Invalid Credentials !");
+        toast.error('Invalid credentials!')
       }
     }
     catch(err){
-      toast.error(err);
+      console.log(err);
     }
   };
 
   return (
-    <div style={{ backgroundColor: '#320b7a', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{backgroundColor: '#f907fc', backgroundImage: 'linear-gradient(315deg, #f907fc 0%, #05d6d9 74%)', height: '100vh', display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center', justifyContent: 'center'}}>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <img src={logoImage} alt="Logo" style={{ width: '400px', height: 'auto',borderRadius:'2rem' }} />
+      </div>
+      <div>
       <form onSubmit={handleSubmit}>
-        <Box maxWidth={400} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center" padding={3} borderRadius={5} boxShadow={3} bgcolor="white">
+        <Box maxWidth={320} width="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center" padding={3} borderRadius={5} boxShadow={3} bgcolor="white">
           <Typography variant='h4' textAlign="center" fontFamily="Times New Roman" color="black"  mb={3}>Login</Typography>
           <TextField label='Email' value={inputs.email} onChange={handleChange} name='email' margin='normal' type='email' required />
           <TextField label='Password' value={inputs.password} onChange={handleChange} name='password' margin='normal' type='password' required />
           <Button variant='contained' type='submit' color='success' sx={{ my: 2, width: '40%' }}>Submit</Button>
-          <Button sx={{color:'black'}} onClick={() => navigate("/signup")} fullWidth>Create an Account</Button>
+
+          <Button sx={{color:'black'}} onClick={() => navigate("/signup")} fullWidth>Register</Button>
         </Box>
       </form>
+      </div>
     </div>
   );
 };

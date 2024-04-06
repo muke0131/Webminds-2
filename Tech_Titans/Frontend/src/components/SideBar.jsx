@@ -11,7 +11,7 @@ const SideBar = () => {
         width: drawerWidth,
         flexShrink: 0,
         '& .MuiDrawer-paper': {
-          background: 'transparent',
+          background: 'linear-gradient(135deg, rgb(206, 159, 252) 10%, rgb(115, 103, 240) 100%)',
           borderRight: '1px solid #fff',
         },
       }}

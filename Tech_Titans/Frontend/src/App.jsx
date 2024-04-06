@@ -17,10 +17,9 @@ import Signup from './Pages/Signup'
 import LogOut from './Pages/LogOut'
 import Header from './components/Header'
 import { useAuth } from './store/auth'
+import AddBankAcc from './Pages/AddBankAcc'
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import AddBankAcc from './Pages/AddBankAcc'
-
 function App() {
   const {isLoggedIn}=useAuth();
   const isLoginPage = window.location.pathname === '/' || window.location.pathname === '/signup';

@@ -4,7 +4,6 @@ import SideBar from '../components/SideBar';
 import { useState } from 'react';
 import { Typography } from '@mui/material';
 import {toast} from 'react-toastify';
-
 const AddBankAcc = () => {
   const [inputs, setInputs] = useState({
     bank_name: 'Central Bank Of India',
@@ -31,10 +30,11 @@ const AddBankAcc = () => {
         body:JSON.stringify(inputs)
       })
       if(response.ok){
-        toast.success("Bank Added Successfully");
+        toast.success("Bank Added Successfully!")
       }
-      else{
-        toast.error("Some error ocurred !");
+      else
+      {
+        toast.error("Some error occured!")
       }
       setInputs({
         bank_name: 'Central Bank Of India',
@@ -44,7 +44,7 @@ const AddBankAcc = () => {
       })
     }
     catch(err){
-      toast.error(err);
+      console.log(err);
     }
   };
 
@@ -52,7 +52,7 @@ const AddBankAcc = () => {
     <div style={{ display: 'flex' }}>
       <SideBar />
       <form onSubmit={handleSubmit}>
-      <Typography variant="h4" style={{ color: '#ffffff', marginBottom: '20px',fontFamily:'times-new-roman' }}>Bank</Typography>
+      <Typography variant="h4" style={{ color: 'black', marginBottom: '20px',fontFamily:'times-new-roman' }}>Bank</Typography>
         <div style={{
           backgroundColor: 'inherit',
           color: '#fff',

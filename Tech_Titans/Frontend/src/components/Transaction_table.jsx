@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
 import { useAuth } from '../store/auth';
-import {toast} from 'react-toastify'
 
 // const transactions = [
 //     { personName: 'John Doe', type: 'Payment', dateTime: '2024-03-01 10:30 AM', amount: '$50.00', status: 'Completed' },
@@ -35,11 +34,11 @@ const Transaction_table = () => {
         }
       })
       const data=await response.json()
-      // console.log(data)
+      console.log(data)
       setTransactions(data);
     }
     catch(err){
-      toast.error(err);
+      console.log(err);
     }
   }
   useEffect(()=>{

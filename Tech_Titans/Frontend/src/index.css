@@ -1,6 +1,10 @@
-body {
-  background-color: #f907fc;
-  background-image: linear-gradient(315deg, #f907fc 0%, #05d6d9 74%);
+*{
+  margin: 0;
+  padding: 0;
+}
+body{
+  /* background-color: #320b7a; */
+  background-color: #eeedf2;
 }
 .custom-sidebar .pro-sidebar {
   background-color: transparent !important;

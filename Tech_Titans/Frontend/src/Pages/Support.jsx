@@ -49,7 +49,7 @@ const Support = () => {
       <SideBar />
       <div style={{ marginLeft: '5rem' }}>
         <div style={{ marginTop: '2rem', marginBottom: '2rem' }}>
-          <Typography variant="h4" style={{ color: '#ffffff', marginBottom: '20px',fontFamily:'times-new-roman' }}>Frequently Asked Questions</Typography>
+          <Typography variant="h4" style={{ color: 'black', marginBottom: '20px',fontFamily:'times-new-roman' }}>Frequently Asked Questions</Typography>
           {faqData.map((faq, index) => (
             <Accordion key={index} style={{ marginBottom: '10px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', borderRadius: '4px', width: '80%' }}>
               <AccordionSummary
@@ -63,7 +63,7 @@ const Support = () => {
               <Typography style={{ backgroundColor: 'white', padding: '10px', borderRadius: '4px', borderTop: '1px solid #ccc' }}>{faq.answer}</Typography>
             </Accordion>
           ))}
-          <Typography variant="h5" style={{ marginTop: '20px', alignSelf: 'center', color: '#ffffff',fontFamily:'serif' }}>For further queries, contact us.</Typography>
+          <Typography variant="h5" style={{ marginTop: '20px', alignSelf: 'center', color: 'black',fontFamily:'serif' }}>For further queries, contact us.</Typography>
         </div>
       </div>
     </div>

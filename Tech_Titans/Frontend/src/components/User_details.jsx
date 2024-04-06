@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../store/auth';
-import {toast} from 'react-toastify'
 
 const User_details = () => {
 
   const [userName,setUsername]=useState("---------");
-  const [ac,setAc]=useState("***************");
+  const [ac,setAc]=useState("***********");
   const { authToken } = useAuth();
 
   const getDetails=async ()=>{
@@ -27,18 +26,18 @@ const User_details = () => {
         })
         if(newRes.ok){
           const bankData=await newRes.json();
-          // console.log(bankData);
+          console.log(bankData);
           setUsername(bankData.account.username);
           setAc(bankData.account.account_no);
         }
       }
       else{
         setUsername(data.user.username);
-        setAc("***************")
+        setAc("***********")
       }
     }
     catch(err){
-      toast.error(err);
+      console.log(err);
     }
   }
   useEffect(()=>{
