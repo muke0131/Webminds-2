@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, Typography, TextField, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import {useAuth} from "../store/auth"
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const Login = () => {
     e.preventDefault();
     // console.log(inputs);
     try{
-      const response=await fetch("https://webminds-2.onrender.com/api/auth/login",{
+      const response=await fetch("http://localhost:4000/api/auth/login",{
         method:"POST",
         headers:{
           "Content-Type":"application/json"
@@ -35,13 +36,14 @@ const Login = () => {
         storeToken(data.token);
         setInputs({email:"",password:""});
         navigate("/Dashboard");
+        toast.success('Login Successful!')
       }
       else{
-        console.log("Invalid Credentials");
+        toast.error("Invalid Credentials !");
       }
     }
     catch(err){
-      console.log(err);
+      toast.error(err);
     }
   };
 

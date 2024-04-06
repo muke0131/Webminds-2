@@ -16,7 +16,7 @@ const accountSchema = mongoose.Schema({
 	},
 	balance: {
 		type: Number,
-		default: Math.random()*10000,
+		default: 10000,
 	},
 },{
 	timestamps:true

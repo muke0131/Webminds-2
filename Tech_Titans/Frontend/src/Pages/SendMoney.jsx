@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import SideBar from '../components/SideBar';
 import { useAuth } from '../store/auth';
 import { Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import {toast} from 'react-toastify';
 
 const SendMoney = () => {
+  const navigate=useNavigate()
   const [inputs, setInputs] = useState({
     from_account: '',
     to_account: '',
@@ -12,38 +15,9 @@ const SendMoney = () => {
   });
   const {authToken}=useAuth();
   const [acNo,setAcNo]=useState([]);
-  // const accountNumbers = [
-  //   { name: "Central Bank Of India", number: "1234567890" },
-  //   { name: "Bank of Broda", number: "0987654321" },
-  //   { name: "HDFC Bank", number: "4567890123" },
-  //   { name: "ICICI Bank", number: "7890123456" },
-  //   { name: "Punjab National Bank", number: "3456789012" },
-  //   { name: "Axis Bank", number: "9012345678" }
-  // ];
-  // const getAccountNo=async(data,i)=>{
-  //   try{
-  //     const newRes=await fetch(`http://localhost:4000/api/account/bank/${data.user.banks[i]._id}`,{
-  //         method:"GET",
-  //         headers: {
-  //           Authorization: authToken,
-  //         }
-  //       })
-  //       if(newRes.ok){
-  //         const bankData=await newRes.json();
-  //         // if(!acNo.includes(bankData.account.account_no)){
-  //         //   acNo.push(bankData.account.account_no);
-  //         //   setAcNo(acNo)
-  //         // }
-  //         acNo.push(bankData.account.account_no)
-  //       }
-  //   }
-  //   catch(err){
-  //     console.log(err);
-  //   }
-  // }
   const getAccounts=async()=>{
     try{
-      const response=await fetch("https://webminds-2.onrender.com/api/account/getUserAccounts",{
+      const response=await fetch("http://localhost:4000/api/account/getUserAccounts",{
         method:"GET",
         headers: {
           Authorization: authToken,
@@ -51,28 +25,18 @@ const SendMoney = () => {
       })
       if (response.ok) {
         const data = await response.json();
-        // console.log(data.arrayOfObjects);
-        // const promises = data.user.banks.map((_, i) => getAccountNo(data, i));
-        // await Promise.all(promises);
-        // console.log(data[1].account_no)
         let len=data.length
-        // console.log(len)
         for(let i=0;i<len;i++){
-          // setAcNo([...acNo,data[i].account_no]);
           acNo.push(data[i].account_no)
           setAcNo(acNo)
         }
-        // data.foreach((x)=>{
-        //   setAcNo([...acNo,data[0].account_no]);
-        // })
-
       } else {
         setAcNo(["***************"]);
       }
       
     }
     catch(err){
-      console.log(err);
+      toast.error(err);
     }
   }
 
@@ -80,7 +44,7 @@ const SendMoney = () => {
     setAcNo([]);
     getAccounts();
   },[]);
-  console.log(acNo);
+  // console.log(acNo);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputs(prevInputs => ({
@@ -91,9 +55,9 @@ const SendMoney = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     delete inputs['currency'];
-    console.log(inputs);
+    // console.log(inputs);
     try{
-      const response=await fetch("https://webminds-2.onrender.com/api/payments/makePayment",{
+      const response=await fetch("http://localhost:4000/api/payments/makePayment",{
       method:"POST",
       headers:{
         "Content-Type":"application/json",
@@ -102,14 +66,17 @@ const SendMoney = () => {
       body:JSON.stringify(inputs)
     })
     if(response.ok){
-      console.log(response.message);
+      // console.log(response.message);
+      navigate('/Dashboard')
+      toast.success("Payment Successfull !! ")
     }
     else{
-      console.log(response.message);
+      // console.log(response.message);
+      toast.error("Some error Occured !!")
     }
     }
     catch(err){
-      console.log(err);
+      toast.error(err);
     }
     setInputs({
       from_account: '',
@@ -127,7 +94,6 @@ const SendMoney = () => {
       currency: 'INR' 
     });
   };
-  console.log(acNo)
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center',marginLeft:'9rem' }}>
       <SideBar />
@@ -156,7 +122,7 @@ const SendMoney = () => {
                 borderRadius: '5px',
               }}
             >
-              {console.log(acNo.length)}
+              {/* {console.log(acNo.length)} */}
               <option value="">Select an account</option>
               {acNo.map((account, index) => (
                 <option key={index} value={account}>
