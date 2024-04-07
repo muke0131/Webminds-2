@@ -43,7 +43,7 @@ const UpcomingPayments = () => {
     getDetails();
   },[getDetails])
   return (
-    <div style={{
+    <div className='balContainer' style={{
       background: '#d8dde8',
       padding: '20px',
       borderRadius: '12px',
