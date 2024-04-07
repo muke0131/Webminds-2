@@ -4,6 +4,7 @@ import SideBar from '../components/SideBar';
 import { Typography, TextField, Button, MenuItem, Box } from '@mui/material';
 import { useAuth } from '../store/auth';
 import {toast} from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const AddAccount = () => {
   const [inputs, setInputs] = useState({
@@ -13,6 +14,7 @@ const AddAccount = () => {
   });
 
   const { authToken } = useAuth();
+  const {navigate}=useNavigate();
 
   const handleChange = (e) => {
     setInputs(prevState => ({
@@ -33,7 +35,8 @@ const AddAccount = () => {
         body: JSON.stringify(inputs)
       });
       if (response.ok) {
-        alert("Bank Added Successfully");
+        toast.success("Bank Added Successfully");
+        navigate("/");
         setInputs({
           username: '',
           account_no: '',
@@ -116,18 +119,23 @@ const AddAccount = () => {
             }}
           >
             <TextField
-              fullWidth
-              type="text"
-              id="accountNo"
-              label='Account Number'
-              name="account_no"
-              value={inputs.account_no}
-              onChange={handleChange}
-              variant="outlined"
-              sx={{
-                textAlign:'left'
-              }}
-            />
+            fullWidth
+            type="text"
+            id="accountNo"
+            label='Account Number'
+            name="account_no"
+            value={inputs.account_no}
+            onChange={handleChange}
+            variant="outlined"
+            sx={{
+                textAlign: 'left'
+            }}
+            inputProps={{
+                maxLength: 12
+            }}
+            error={inputs.account_no.length !== 12 && inputs.account_no.length>0} // Add error state if length is not 12
+            helperText={inputs.account_no.length !== 12 && inputs.account_no.length>0 ? "Account number must be exactly 12 characters" : ""}
+        />
           </Box>
           <Box
             className="account-holder"
