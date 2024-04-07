@@ -5,12 +5,13 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import InfoIcon from '@mui/icons-material/Info';
 import HelpIcon from '@mui/icons-material/Help';
+import LogoutIcon from '@mui/icons-material/Logout';
 import SecurityIcon from '@mui/icons-material/Security';
 import { useAuth } from '../store/auth';
 
 const drawerWidth = 240;
 
-const SideBar = () => {
+const MobileSideBar = () => {
   const [userName,setUsername]=useState("---------");
   const [ac,setAc]=useState("***********");
   const { authToken } = useAuth();
@@ -53,7 +54,7 @@ const SideBar = () => {
   
   return (
     <Drawer
-      className='sidebar'
+      className='mobileSideBar'
       sx={{
         width: drawerWidth,
         flexShrink: 0,
@@ -132,12 +133,16 @@ const SideBar = () => {
           <HelpIcon sx={{ marginRight: '8px' }} />
           <ListItemText primary="Terms of Service" />
         </ListItem>
+        <ListItem component={Link} to="/logout" button>
+          <LogoutIcon sx={{ marginRight: '8px' }} />
+          <ListItemText primary="Log Out" />
+        </ListItem>
       </List>
     </Drawer>
   );
 };
 
-export default SideBar;
+export default MobileSideBar;
 
 
 

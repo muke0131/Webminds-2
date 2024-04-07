@@ -54,6 +54,7 @@ const Signup = () => {
 
   return (
     <div
+    className="loginPage"
       style={{
         backgroundColor: "#f907fc",
         backgroundImage: "linear-gradient(315deg, #f907fc 0%, #05d6d9 74%)",
@@ -66,13 +67,14 @@ const Signup = () => {
     >
       <div style={{ display: "flex", justifyContent: "center" }}>
         <img
+        className="loginLogo"
           src={logoImage}
           alt="Logo"
           style={{ width: "400px", height: "auto", borderRadius: "2rem" }}
         />
       </div>
-      <div>
-        <form onSubmit={handleSubmit}>
+      <div className="loginBox">
+        <form className="loginForm" onSubmit={handleSubmit}>
           <Box
             maxWidth={420}
             width="100%"

@@ -49,7 +49,7 @@ const Transaction_table = () => {
 
   return (
     <div >
-      <Typography variant="h5" style={{ textAlign: 'center', color: 'black', marginBottom: '30px', fontFamily: 'times-new-roman', fontWeight: 'bolder', fontSize: '2.3rem' }}>Recent Transactions</Typography>
+      <Typography className='recent' variant="h5" style={{ textAlign: 'center', color: 'black', marginBottom: '30px', fontFamily: 'times-new-roman', fontWeight: 'bolder', fontSize: '2.3rem' }}>Recent Transactions</Typography>
       {isLoading ? (
         <Box
           sx={{
@@ -65,13 +65,13 @@ const Transaction_table = () => {
           <Typography variant="h5" sx={{ color: 'black' }}>Loading...</Typography>
         </Box>
       ) : (
-        <Table style={{ width: '100%' }}>
+        <Table className='trxTable' style={{ width: '100%' }}>
           <TableHead>
             <TableRow style={{ background: 'black' }}>
-              <TableCell style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'Times new roman', fontSize: '20px', borderBottom: 'none' }}>Type</TableCell>
-              <TableCell style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'Times new roman', fontSize: '20px', borderBottom: 'none' }}>Date & Time</TableCell>
-              <TableCell style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'Times new roman', fontSize: '20px', borderBottom: 'none' }}>Amount</TableCell>
-              <TableCell style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'Times new roman', fontSize: '20px', borderBottom: 'none' }}>To / From</TableCell>
+              <TableCell className='tableHead' style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'Times new roman', fontSize: '20px', borderBottom: 'none' }}>Type</TableCell>
+              <TableCell className='tableHead' style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'Times new roman', fontSize: '20px', borderBottom: 'none' }}>Date & Time</TableCell>
+              <TableCell className='tableHead' style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'Times new roman', fontSize: '20px', borderBottom: 'none' }}>Amount</TableCell>
+              <TableCell className='tableHead' style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'Times new roman', fontSize: '20px', borderBottom: 'none' }}>To / From</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -91,10 +91,10 @@ const Transaction_table = () => {
                 return (
                   <TableRow key={index}>
 
-                    <TableCell sx={{ color: getStatusColor(transaction.status), borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{(transaction.status).toUpperCase()}</TableCell>
-                    <TableCell sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{formattedDate}</TableCell>
-                    <TableCell sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>₹ {transaction.amount}</TableCell>
-                    <TableCell sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{transaction.status == "sent" ? transaction.to_name : transaction.from_name}</TableCell>
+                    <TableCell className='tableHead' sx={{ color: getStatusColor(transaction.status), borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{(transaction.status).toUpperCase()}</TableCell>
+                    <TableCell className='tableHead' sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{formattedDate}</TableCell>
+                    <TableCell className='tableHead' sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>₹ {transaction.amount}</TableCell>
+                    <TableCell className='tableHead' sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{transaction.status == "sent" ? transaction.to_name : transaction.from_name}</TableCell>
                   </TableRow>
                 );
               })}

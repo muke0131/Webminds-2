@@ -1,11 +1,132 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
-body{
+body {
   /* background-color: #320b7a; */
   background-color: #eeedf2;
 }
 .custom-sidebar .pro-sidebar {
   background-color: transparent !important;
+}
+.topButton {
+  display: none ;
+}
+
+@media only screen and (max-width: 500px) {
+  .sidebar {
+    display: none;
+  }
+  .button {
+    height: 7rem !important;
+    width: 7rem !important;
+    margin: 0px;
+  }
+  .btnIcon {
+    font-size: 3rem !important;
+  }
+  .button > h3 {
+    font-size: 0.8rem;
+    text-wrap: pretty;
+  }
+  .home {
+    width: 100vw !important;
+  }
+  .home-buttons {
+    margin-top: 3rem;
+    margin-left: 0px;
+    width: 100vw !important;
+    justify-content: center;
+    flex-wrap: wrap !important;
+  }
+  .home1 {
+    margin-left: 0px !important;
+  }
+  .logout {
+    right: 10px;
+    display: none;
+  }
+  .chartBal {
+    width: 100vw !important;
+    height: 60vh !important;
+    flex-direction: column-reverse !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  .Chart {
+    width: 100vw !important;
+    height: 26vh !important;
+  }
+  .balContainer {
+    height: 15vh !important;
+    width: 70vw !important;
+  }
+  .balContainer > h2 {
+    font-size: 1.7rem !important;
+  }
+  .balContainer > h1 {
+    font-size: 1.7rem !important;
+  }
+  .trxTable {
+    width: 100vw !important;
+  }
+  .tableHead {
+    font-size: 1rem !important;
+  }
+  .recent {
+    margin-top: 1.5rem !important;
+    font-size: 1.9rem !important;
+  }
+  .mobileSideBar {
+    display: absolute;
+    /* display: none; */
+    top: 0;
+    left: 0;
+    z-index: 999;
+  }
+  .topButton {
+    display: block;
+    position: fixed;
+    z-index: 1001;
+    top: 1rem;
+    float: right;
+    margin-right: 1rem;
+  }
+  
+
+  .loginPage{
+    min-height: 100vh !important;
+    padding-bottom: 1rem !important;
+    width: 100vw ;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    height: fit-content !important;
+  }
+  .loginLogo{
+    width: 50vw !important;
+    margin: 2rem !important;
+  }
+  .loginBox{
+    width: 100vw !important;
+  }
+  .loginForm{
+    width: 80% !important;
+    margin-left: 1rem;
+  }
+  .sendMoneyForm{
+    margin-left:2rem !important;
+  }
+  .sendMoneyHeading{
+    width: 80vw !important;
+  }
+  .sendMoneyBox{
+    width: 90vw !important;
+  }
+  .amount-container{
+    width: 67vw !important;
+  }
+  .sendMoneyAmount{
+    width: 60vw !important;
+  }
 }

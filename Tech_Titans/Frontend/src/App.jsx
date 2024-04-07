@@ -18,17 +18,32 @@ import LogOut from './Pages/LogOut'
 import Header from './components/Header'
 import { useAuth } from './store/auth'
 import AddBankAcc from './Pages/AddBankAcc'
+import MobileSideBar from './components/MobileSideBar'
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import { useState } from 'react'
 function App() {
   const {isLoggedIn}=useAuth();
   const isLoginPage = window.location.pathname === '/' || window.location.pathname === '/signup';
+
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  const toggleSidebar = () => {
+    setShowSidebar(!showSidebar);
+  };
 
   return (
     <BrowserRouter>
       {!isLoginPage && isLoggedIn && <Header/>}
       {/* {!isLoginPage && isLoggedIn && <SideBar/>} */}
-      
+      {!isLoginPage && isLoggedIn &&
+      <IconButton className='topButton' onClick={toggleSidebar}>
+                <MenuIcon />
+            </IconButton>}
+            {isLoggedIn && showSidebar && <MobileSideBar />}
+
         <Routes>
           
           <Route path='/logout' element={<LogOut/>}/>

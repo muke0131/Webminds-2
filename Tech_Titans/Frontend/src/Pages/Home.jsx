@@ -1,52 +1,132 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import SideBar from '../components/SideBar';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import PaymentIcon from '@mui/icons-material/Payment';
-import SyncAltIcon from '@mui/icons-material/SyncAlt';
-import ListAltIcon from '@mui/icons-material/ListAlt';
-import User_details from '../components/User_details';
-import UpcomingPayments from '../components/Upcoming_payments';
-import Transaction_table from '../components/Transaction_table';
-import LineChart from '../components/LineChart';
+import React from "react";
+import { Link } from "react-router-dom";
+import SideBar from "../components/SideBar";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import PaymentIcon from "@mui/icons-material/Payment";
+import SyncAltIcon from "@mui/icons-material/SyncAlt";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import User_details from "../components/User_details";
+import UpcomingPayments from "../components/Upcoming_payments";
+import Transaction_table from "../components/Transaction_table";
+import LineChart from "../components/LineChart";
 
 const linkStyles = {
-  textDecoration: 'none',
-  color: 'white', 
+  textDecoration: "none",
+  color: "white",
 };
 
 const Home = () => {
   return (
-    <div style={{ display: 'flex' }}>
+    <div className="home" style={{ display: "flex" }}>
       <SideBar />
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'left', marginLeft: '3rem' }}>
-        <div style={{ display: 'flex' }}>
+      <div
+      className="home1"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "left",
+          marginLeft: "3rem",
+        }}
+      >
+        <div className="home-buttons" style={{ display: "flex" }}>
           <Link to="/send-money" style={linkStyles}>
-            <div style={{ background: 'linear-gradient(135deg, rgb(206, 159, 252) 10%, rgb(115, 103, 240) 100%)', width: '170px', height: '170px', borderRadius: '15%', margin: '25px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-              <PaymentIcon sx={{ fontSize: '6rem', color: 'white' }} />
+            <div
+              className="button"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgb(206, 159, 252) 10%, rgb(115, 103, 240) 100%)",
+                width: "170px",
+                height: "170px",
+                borderRadius: "15%",
+                margin: "25px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+              }}
+            >
+              <PaymentIcon
+                className="btnIcon"
+                sx={{ fontSize: "6rem", color: "white" }}
+              />
               <h3>Send Money</h3>
             </div>
           </Link>
           <Link to="/receive-money" style={linkStyles}>
-            <div style={{ background: 'linear-gradient(135deg, rgb(206, 159, 252) 10%, rgb(115, 103, 240) 100%)', width: '170px', height: '170px', borderRadius: '15%', margin: '25px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-              <SyncAltIcon sx={{ fontSize: '6rem', color: 'white' }} />
+            <div
+              className="button"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgb(206, 159, 252) 10%, rgb(115, 103, 240) 100%)",
+                width: "170px",
+                height: "170px",
+                borderRadius: "15%",
+                margin: "25px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+              }}
+            >
+              <SyncAltIcon
+                className="btnIcon"
+                sx={{ fontSize: "6rem", color: "white" }}
+              />
               <h3>Receive Money</h3>
             </div>
           </Link>
           <Link to="/add-account" style={linkStyles}>
-            <div style={{ background: 'linear-gradient(135deg, rgb(206, 159, 252) 10%, rgb(115, 103, 240) 100%)', width: '170px', height: '170px', borderRadius: '15%', margin: '25px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-              <AccountBalanceIcon sx={{ fontSize: '6rem', color: 'white' }} />
+            <div
+              className="button"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgb(206, 159, 252) 10%, rgb(115, 103, 240) 100%)",
+                width: "170px",
+                height: "170px",
+                borderRadius: "15%",
+                margin: "25px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+              }}
+            >
+              <AccountBalanceIcon
+                className="btnIcon"
+                sx={{ fontSize: "6rem", color: "white" }}
+              />
               <h3>Add Bank Account</h3>
             </div>
           </Link>
           <Link to="/statement" style={linkStyles}>
-            <div style={{ background: 'linear-gradient(135deg, rgb(206, 159, 252) 10%, rgb(115, 103, 240) 100%)', width: '170px', height: '170px', borderRadius: '15%', margin: '25px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-              <ListAltIcon sx={{ fontSize: '6rem', color: 'white', paddingTop: '1rem' }} />
+            <div
+              className="button"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgb(206, 159, 252) 10%, rgb(115, 103, 240) 100%)",
+                width: "170px",
+                height: "170px",
+                borderRadius: "15%",
+                margin: "25px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+              }}
+            >
+              <ListAltIcon
+                className="btnIcon"
+                sx={{ fontSize: "6rem", color: "white", paddingTop: "1rem" }}
+              />
               <h3>Balance And Statement</h3>
             </div>
           </Link>
         </div>
-        <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginTop:"2%"}}>
+        <div className="chartBal" style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginTop:"2%"}}>
         <LineChart/>
         <UpcomingPayments/>
         </div>

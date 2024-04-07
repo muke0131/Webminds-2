@@ -98,9 +98,11 @@ const SendMoney = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10rem', position: 'relative' }}>
+    <Box className="sendMoneyForm" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10rem', position: 'relative' }}>
       <SideBar />
-      <Typography variant="h4" style={{ textAlign: 'center', color: 'black', marginBottom: '30px', fontFamily: 'times-new-roman', marginTop: '2rem' }}>Send Money</Typography>
+      <Typography
+      className='sendMoneyHeading' 
+      variant="h4" style={{ textAlign: 'center', color: 'black', marginBottom: '30px', fontFamily: 'times-new-roman', marginTop: '2rem' }}>Send Money</Typography>
 
       {isLoading ? (
         <Box
@@ -125,6 +127,7 @@ const SendMoney = () => {
             position="relative"
           >
             <TextField
+              className='sendMoneyBox'
               fullWidth
               select
               label="Select Account"
@@ -145,6 +148,7 @@ const SendMoney = () => {
               ))}
             </TextField>
             <TextField
+            className='sendMoneyBox'
               fullWidth
               id="accountNo"
               name="to_account"
@@ -167,6 +171,7 @@ const SendMoney = () => {
             <Box display="flex" alignItems="center">
               <Box className="amount-container" margin="auto" marginTop={'1.4rem'}>
                 <TextField
+                  className='sendMoneyAmount'
                   type="text"
                   id="Amount"
                   name="amount"
