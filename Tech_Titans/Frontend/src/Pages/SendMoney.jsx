@@ -138,11 +138,16 @@ const SendMoney = () => {
               textAlign: 'left',
               color: 'black'
             }}
+            inputProps={{
+              maxLength: 12
+          }}
+          error={inputs.to_account.length !== 12 && inputs.to_account.length>0} // Add error state if length is not 12
+          helperText={inputs.to_account.length !== 12 && inputs.to_account.length>0 ? "Account number must be exactly 12 characters" : ""}
           />
-             <Box display="flex" alignItems="center">
+          <Box display="flex" alignItems="center">
           <Box className="amount-container" margin="auto" marginTop={'1.4rem'}>
             <TextField
-              type="text"
+              type="number"
               id="Amount"
               name="amount"
               label='Amount'
@@ -153,6 +158,8 @@ const SendMoney = () => {
                 marginRight:'20px'
               }}
               variant="outlined"
+              error={inputs.amount <= 0 && inputs.amount.length!=0} 
+              helperText={inputs.amount <= 0 && inputs.amount.length!=0? "Amount must be greater than 0" : ""}
             />
           </Box>
           <Box className="currency-select" margin="auto">

@@ -23,6 +23,7 @@ const ReceiveMoney = () => {
       if(response.ok){
         const data=await response.json()
         console.log(data)
+        setUpiID(`${data.user.phone}@easyPay`);
         const newRes=await fetch(`http://localhost:4000/api/account/bank/${data.user.banks[0]._id}`,{
           method:"GET",
           headers: {
@@ -32,8 +33,8 @@ const ReceiveMoney = () => {
         if(newRes.ok){
           const bankData=await newRes.json();
           setUsername(bankData.account.username);
-          const cleanedUsername = bankData.account.username.split(' ').join('_');
-          setUpiID(`${cleanedUsername}@easyPay`);
+          // const cleanedUsername = bankData.account.username.split(' ').join('_');
+          // setUpiID(`${cleanedUsername}@easyPay`);
           const data = `Account Details : \n Account Holder : ${bankData.account.username} \n Bank : ${bankData.account.bank_name} \n Account_No : ${bankData.account.account_no}`;
           setQRCodeData(data);
           generateShareableLink(data);
