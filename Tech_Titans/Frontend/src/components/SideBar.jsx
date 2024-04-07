@@ -90,7 +90,8 @@ const SideBar = () => {
           <ListItemText 
             primary="Customer Details" 
             primaryTypographyProps={{ 
-              variant: 'h6', 
+              variant: 'h6',
+              fontSize:'18px',
               fontWeight: 'bolder',
             }} 
           />
@@ -98,6 +99,7 @@ const SideBar = () => {
         <ListItem sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
           <ListItemText primary="Name" primaryTypographyProps={{  
               fontWeight: 'bolder',
+              fontSize:'18px',
               variant:'h6'
             }} />
           <ListItemText primary={userName} />
@@ -105,6 +107,7 @@ const SideBar = () => {
         <ListItem sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
           <ListItemText  primary="Account Number" primaryTypographyProps={{  
               fontWeight: 'bolder',
+              fontSize:'18px',
               variant:'h6'
             }} />
           <ListItemText  primary={ac} />

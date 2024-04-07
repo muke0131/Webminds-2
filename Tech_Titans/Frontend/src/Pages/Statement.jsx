@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Table, TableHead, TableBody, TableRow, TableCell, Typography } from '@mui/material';
+import { Table, TableHead, TableBody, TableRow, TableCell, Typography,CircularProgress,Box } from '@mui/material';
 import SideBar from '../components/SideBar';
 import { useAuth } from '../store/auth';
 import {toast} from 'react-toastify';
 
 const Statement = () => {
+  const [isLoading,setIsLoading]=useState(false)
   const {authToken}=useAuth();
   const [transactions,setTransactions]=useState([]);
   const compareDates = (a, b) => {
@@ -25,6 +26,7 @@ const Statement = () => {
   };
 
   const getTransactions=async()=>{
+    setIsLoading(true)
     try{
       const response=await fetch("http://localhost:4000/api/payments/transactions",{
         method:"GET",
@@ -34,6 +36,7 @@ const Statement = () => {
       })
       const data=await response.json()
       setTransactions(data);
+      setIsLoading(false)
     }
     catch(err){
       toast.error(err);
@@ -47,6 +50,21 @@ const Statement = () => {
       <SideBar/>
       <div style={{ width: '100%' }}>
       <Typography variant="h4" style={{ textAlign:'center',color: 'black', marginBottom: '30px',fontFamily:'times-new-roman',marginTop:'1.2rem' }}>Statement and Balance</Typography>
+      {isLoading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+            flexDirection: "column",
+            margin:'auto'
+          }}
+        >
+          <CircularProgress color="inherit" />
+          <Typography variant="h5" sx={{ color: 'black' }}>Loading...</Typography>
+        </Box>
+      ) : (
       <Table style={{ width: '100%' }}>
         <TableHead>
           <TableRow style={{ background: 'black' }}>
@@ -80,6 +98,7 @@ const Statement = () => {
 })}
         </TableBody>
       </Table>
+)    }
     </div>
     </div>
   );
