@@ -1,90 +1,106 @@
 import React, { useEffect, useState } from 'react';
-import { Table, TableHead, TableBody, TableRow, TableCell,Typography } from '@mui/material';
+import { Table, TableHead, TableBody, TableRow, TableCell, Typography, Box, CircularProgress } from '@mui/material';
 import { useAuth } from '../store/auth';
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 
 const Transaction_table = () => {
-  const {authToken}=useAuth();
-  const [transactions,setTransactions]=useState([]);
+  const [isLoading, setIsLoading] = useState(false)
+  const { authToken } = useAuth();
+  const [transactions, setTransactions] = useState([]);
 
 
   const compareDates = (a, b) => {
     const dateA = new Date(a.createdAt);
     const dateB = new Date(b.createdAt);
-  
+
     return dateA - dateB;
   };
   const getStatusColor = (status) => {
     switch (status.toLowerCase()) {
       case 'received':
-        return '#4CAF50'; 
+        return '#4CAF50';
       case 'sent':
-        return '#f44336';  
+        return '#f44336';
       default:
-        return 'black'; 
+        return 'black';
     }
   };
 
-  const getTransactions=async()=>{
-    try{
-      const response=await fetch("http://localhost:4000/api/payments/transactions",{
-        method:"GET",
-        headers:{
-          "Authorization":authToken
+  const getTransactions = async () => {
+    setIsLoading(true)
+    try {
+      const response = await fetch("http://localhost:4000/api/payments/transactions", {
+        method: "GET",
+        headers: {
+          "Authorization": authToken
         }
       })
-      const data=await response.json()
+      const data = await response.json()
       setTransactions(data);
+      setIsLoading(false)
     }
-    catch(err){
+    catch (err) {
       toast.error(err);
     }
   }
-  useEffect(()=>{
+  useEffect(() => {
     getTransactions();
-  },[])
-  
+  }, [])
+
   return (
     <div >
-      <Typography variant="h5" style={{ textAlign:'center',color: 'black', marginBottom: '30px',fontFamily:'times-new-roman',fontWeight:'bolder',fontSize:'2.3rem' }}>Recent Transactions</Typography>
-      <Table style={{ width: '100%' }}>
-        <TableHead>
-          <TableRow style={{ background: 'black' }}>
-            <TableCell style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'Times new roman', fontSize: '20px',borderBottom:'none' }}>Type</TableCell>
-            <TableCell style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'Times new roman', fontSize: '20px',borderBottom:'none' }}>Date & Time</TableCell>
-            <TableCell style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'Times new roman', fontSize: '20px',borderBottom:'none' }}>Amount</TableCell>
-            <TableCell style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'Times new roman', fontSize: '20px',borderBottom:'none' }}>To / From</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+      <Typography variant="h5" style={{ textAlign: 'center', color: 'black', marginBottom: '30px', fontFamily: 'times-new-roman', fontWeight: 'bolder', fontSize: '2.3rem' }}>Recent Transactions</Typography>
+      {isLoading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+            flexDirection: "column",
+            marginLeft: '10rem'
+          }}
+        >
+          <CircularProgress color="inherit" />
+          <Typography variant="h5" sx={{ color: 'black' }}>Loading...</Typography>
+        </Box>
+      ) : (
+        <Table style={{ width: '100%' }}>
+          <TableHead>
+            <TableRow style={{ background: 'black' }}>
+              <TableCell style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'Times new roman', fontSize: '20px', borderBottom: 'none' }}>Type</TableCell>
+              <TableCell style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'Times new roman', fontSize: '20px', borderBottom: 'none' }}>Date & Time</TableCell>
+              <TableCell style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'Times new roman', fontSize: '20px', borderBottom: 'none' }}>Amount</TableCell>
+              <TableCell style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'Times new roman', fontSize: '20px', borderBottom: 'none' }}>To / From</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {
+              transactions.sort(compareDates).reverse().slice(0, 5).map((transaction, index) => {
+                var createdAt = transaction.createdAt;
+                var date = new Date(createdAt);
+                var formattedDate = date.toLocaleString('en-US', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  timeZone: 'Asia/Kolkata'
+                });
 
-    
-        {
-    
-        transactions.sort(compareDates).reverse().slice(0, 5).map((transaction, index) => {
-    var createdAt = transaction.createdAt;
-    var date = new Date(createdAt);
-    var formattedDate = date.toLocaleString('en-US', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        timeZone: 'Asia/Kolkata'
-    });
+                return (
+                  <TableRow key={index}>
 
-    return (
-        <TableRow key={index}>
-          
-            <TableCell sx={{ color: getStatusColor(transaction.status), borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{(transaction.status).toUpperCase()}</TableCell>
-            <TableCell sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{formattedDate}</TableCell>
-            <TableCell sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>₹ {transaction.amount}</TableCell>
-            <TableCell sx={{ color:'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{transaction.status=="sent"?transaction.to_name:transaction.from_name}</TableCell>
-        </TableRow>
-    );
-})}
-        </TableBody>
-      </Table>
+                    <TableCell sx={{ color: getStatusColor(transaction.status), borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{(transaction.status).toUpperCase()}</TableCell>
+                    <TableCell sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{formattedDate}</TableCell>
+                    <TableCell sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>₹ {transaction.amount}</TableCell>
+                    <TableCell sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{transaction.status == "sent" ? transaction.to_name : transaction.from_name}</TableCell>
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </Table>
+      )}
     </div>
   );
 };

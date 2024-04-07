@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SideBar from '../components/SideBar';
-import { Typography, Box, TextField, IconButton } from '@mui/material';
+import { Typography, Box, TextField, IconButton,CircularProgress } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { toast } from 'react-toastify';
@@ -8,6 +8,7 @@ import { useAuth } from '../store/auth';
 import { useNavigate } from "react-router-dom";
 
 const Security = () => {
+  const [isLoading,setIsLoading]=useState(false)
   const [inputs, setInputs] = useState({
     current_password: '',
     new_password: '',
@@ -35,6 +36,7 @@ const Security = () => {
       toast.error("Confirm password does not match");
       return;
     }
+    setIsLoading(true)
     try {
       const response = await fetch("http://localhost:4000/api/auth/change", {
         method: "POST",
@@ -48,14 +50,16 @@ const Security = () => {
       if (data.success === true) {
         setInputs({ current_password: "", new_password: "", confirm_password: "" });
         toast.success('Password Changed Successfully!')
-        navigate("/logout");
+        navigate("/dashboard");
       }
       else {
-        toast.error("Incorrect Password");
+        toast.error("Some error occured!");
       }
+      setIsLoading(false)
     }
     catch (err) {
       toast.error(err);
+      setIsLoading(false)
     }
   };
   const handleCancel = () => {
@@ -67,9 +71,23 @@ const Security = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10rem' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft:'10rem' }}>
       <SideBar />
       <Typography variant="h4" style={{ textAlign: 'center', color: 'black', marginBottom: '30px', fontFamily: 'times-new-roman', marginTop: '2rem' }}>Change Password</Typography>
+      {isLoading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+            flexDirection: "column",
+          }}
+        >
+          <CircularProgress color="inherit" />
+          <Typography variant="h5" sx={{ color: 'black' }}>Loading...</Typography>
+        </Box>
+      ) : (
       <form onSubmit={handleSubmit}>
         <Box
           sx={{
@@ -197,6 +215,7 @@ const Security = () => {
           </div>
         </Box>
       </form >
+      )}
     </Box >
   );
 };

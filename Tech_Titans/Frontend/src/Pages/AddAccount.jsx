@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import SideBar from '../components/SideBar';
-import { Typography, TextField, Button, MenuItem, Box } from '@mui/material';
+import { Typography, TextField, CircularProgress, MenuItem, Box } from '@mui/material';
+import {toast} from 'react-toastify'
 import { useAuth } from '../store/auth';
-import {toast} from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-
+import {useNavigate} from 'react-router-dom'
 const AddAccount = () => {
+  const navigate=useNavigate()
   const [inputs, setInputs] = useState({
     username: '',
     account_no: '',
     bank_name: ''
   });
-
+  const [isLoading, setIsLoading] = useState(false);
   const { authToken } = useAuth();
-  const {navigate}=useNavigate();
 
   const handleChange = (e) => {
     setInputs(prevState => ({
@@ -25,6 +24,7 @@ const AddAccount = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const response = await fetch("http://localhost:4000/api/account/addBank", {
         method: "POST",
@@ -36,18 +36,20 @@ const AddAccount = () => {
       });
       if (response.ok) {
         toast.success("Bank Added Successfully");
-        navigate("/");
         setInputs({
           username: '',
           account_no: '',
-          bank_name: 'Central Bank Of India'
+          bank_name: ''
         })
+        navigate('/dashboard')
       } else {
         toast.error("Some error Occured");
       }
+      setIsLoading(false);
     }
     catch (err) {
       toast.error(err);
+      setIsLoading(false);
     }
   };
   const handleCancel = () => {
@@ -56,17 +58,33 @@ const AddAccount = () => {
     account_no: '',
     bank_name: ''
     });
+    setIsLoading(false)
   };
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin:'auto', position: 'relative' }}>
       <SideBar />
+      {isLoading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+            flexDirection: "column",
+            marginLeft:'10rem'
+          }}
+        >
+          <CircularProgress color="inherit" />
+          <Typography variant="h5" sx={{ color: 'black' }}>Loading...</Typography>
+        </Box>
+      ) : (
       <form onSubmit={handleSubmit} style={{ marginTop: "1.2rem" }}>
-        <Typography variant="h4" style={{ color: 'black', marginBottom: '10px', fontFamily: 'times-new-roman', textAlign: 'center', position: 'relative', marginLeft: "9rem" }}>Add Bank Account</Typography>
+        <Typography variant="h4" style={{ marginLeft:'8rem',textAlign: 'center', color: 'black', marginBottom: '30px', fontFamily: 'times-new-roman', marginTop: '2rem' }}>Add Bank Account</Typography>
         <Box
           sx={{
             backgroundColor: 'inherit',
             color: 'black',
-            padding: '50px',
+            padding: '20px',
             textAlign: 'center',
             position: 'relative',
             marginLeft: '10rem',
@@ -193,6 +211,7 @@ const AddAccount = () => {
             </div>
         </Box>
       </form>
+      )}
     </Box>
   );
 };

@@ -10,7 +10,7 @@ const LogOut=()=>{
   useEffect(() => {
     logout();
     navigate("/");
-    toast.success("Logged Out Successfully");
+    toast.success("Logged Out Successfully!");
   }, []);
   
   return ;
