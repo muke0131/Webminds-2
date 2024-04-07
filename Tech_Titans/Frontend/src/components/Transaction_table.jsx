@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Table, TableHead, TableBody, TableRow, TableCell,Typography } from '@mui/material';
 import { useAuth } from '../store/auth';
-
-
+import {toast} from 'react-toastify'
 
 const Transaction_table = () => {
   const {authToken}=useAuth();
   const [transactions,setTransactions]=useState([]);
+
+
+  const compareDates = (a, b) => {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+  
+    return dateA - dateB;
+  };
   const getStatusColor = (status) => {
     switch (status.toLowerCase()) {
       case 'received':
@@ -27,11 +34,10 @@ const Transaction_table = () => {
         }
       })
       const data=await response.json()
-      console.log(data)
       setTransactions(data);
     }
     catch(err){
-      console.log(err);
+      toast.error(err);
     }
   }
   useEffect(()=>{
@@ -40,7 +46,7 @@ const Transaction_table = () => {
   
   return (
     <div >
-      <Typography variant="h5" style={{ textAlign:'center',color: 'black', marginBottom: '30px',fontFamily:'times-new-roman',marginTop:'2rem' }}>Recent Transactions</Typography>
+      <Typography variant="h5" style={{ textAlign:'center',color: 'black', marginBottom: '30px',fontFamily:'times-new-roman',fontWeight:'bolder',fontSize:'2.3rem' }}>Recent Transactions</Typography>
       <Table style={{ width: '100%' }}>
         <TableHead>
           <TableRow style={{ background: 'black' }}>
@@ -52,7 +58,10 @@ const Transaction_table = () => {
         </TableHead>
         <TableBody>
 
-        {transactions.reverse().slice(0, 5).map((transaction, index) => {
+    
+        {
+    
+        transactions.sort(compareDates).reverse().slice(0, 5).map((transaction, index) => {
     var createdAt = transaction.createdAt;
     var date = new Date(createdAt);
     var formattedDate = date.toLocaleString('en-US', {
@@ -67,9 +76,9 @@ const Transaction_table = () => {
     return (
         <TableRow key={index}>
           
-            <TableCell sx={{ color: getStatusColor(transaction.status), borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{transaction.status}</TableCell>
+            <TableCell sx={{ color: getStatusColor(transaction.status), borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{(transaction.status).toUpperCase()}</TableCell>
             <TableCell sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{formattedDate}</TableCell>
-            <TableCell sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{transaction.amount}</TableCell>
+            <TableCell sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>₹ {transaction.amount}</TableCell>
             <TableCell sx={{ color:'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{transaction.status=="sent"?transaction.to_name:transaction.from_name}</TableCell>
         </TableRow>
     );

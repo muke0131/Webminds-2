@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../store/auth';
+import {toast} from 'react-toastify'
 
 const User_details = () => {
 
@@ -26,7 +27,6 @@ const User_details = () => {
         })
         if(newRes.ok){
           const bankData=await newRes.json();
-          console.log(bankData);
           setUsername(bankData.account.username);
           setAc(bankData.account.account_no);
         }
@@ -37,7 +37,7 @@ const User_details = () => {
       }
     }
     catch(err){
-      console.log(err);
+      toast.error(err);
     }
   }
   useEffect(()=>{
