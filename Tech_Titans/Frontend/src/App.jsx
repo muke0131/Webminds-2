@@ -27,7 +27,7 @@ function App() {
   return (
     <BrowserRouter>
       {!isLoginPage && isLoggedIn && <Header/>}
-      {!isLoginPage && isLoggedIn && <SideBar/>}
+      {/* {!isLoginPage && isLoggedIn && <SideBar/>} */}
       
         <Routes>
           

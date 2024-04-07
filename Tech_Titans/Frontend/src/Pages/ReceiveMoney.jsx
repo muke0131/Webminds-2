@@ -4,6 +4,7 @@ import QRCode from "react-qr-code";
 import SideBar from '../components/SideBar';
 import { Divider, Typography} from '@mui/material';
 import { useAuth } from '../store/auth';
+import {toast} from 'react-toastify'
 const ReceiveMoney = () => {
   const [loading,setLoading]=useState(true);
   const [qrCodeData, setQRCodeData] = useState('');
@@ -46,7 +47,7 @@ const ReceiveMoney = () => {
       setLoading(false);
     }
     catch(err){
-      console.log(err);
+      toast.error(err);
     }
   }
 

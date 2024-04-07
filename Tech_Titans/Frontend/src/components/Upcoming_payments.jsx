@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../store/auth';
+import {toast} from 'react-toastify'
 
 
 const UpcomingPayments = () => {
@@ -27,7 +28,6 @@ const UpcomingPayments = () => {
         })
         if(newRes.ok){
           const bankData=await newRes.json();
-          console.log(bankData.account.balance);
           setBalance(bankData.account.balance);
         }
       }
@@ -36,7 +36,7 @@ const UpcomingPayments = () => {
       }
     }
     catch(err){
-      console.log(err);
+      toast.error(err);
     }
   }
   useEffect(()=>{

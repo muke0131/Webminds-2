@@ -26,6 +26,7 @@ const SideBar = () => {
       if(response.ok){
         const data=await response.json()
         // console.log(data)
+        setUsername(data.user.username);
         const newRes=await fetch(`http://localhost:4000/api/account/bank/${data.user.banks[0]._id}`,{
           method:"GET",
           headers: {
@@ -35,12 +36,10 @@ const SideBar = () => {
         if(newRes.ok){
           const bankData=await newRes.json();
           console.log(bankData);
-          setUsername(bankData.account.username);
           setAc(bankData.account.account_no);
         }
       }
       else{
-        setUsername(data.user.username);
         setAc("***********")
       }
     }
@@ -84,6 +83,8 @@ const SideBar = () => {
             }} 
           />
         </ListItem>
+        <br />
+        <br />
         <Divider sx={{ backgroundColor: '#fff' }} />
         <ListItem>
           <ListItemText 
@@ -97,15 +98,19 @@ const SideBar = () => {
         <ListItem sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
           <ListItemText primary="Name" primaryTypographyProps={{  
               fontWeight: 'bolder',
+              variant:'h6'
             }} />
           <ListItemText primary={userName} />
         </ListItem>
         <ListItem sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
           <ListItemText  primary="Account Number" primaryTypographyProps={{  
               fontWeight: 'bolder',
+              variant:'h6'
             }} />
           <ListItemText  primary={ac} />
         </ListItem>
+        <br />
+        <br />
         <Divider sx={{ backgroundColor: '#fff' }} />
         <ListItem component={Link} to="/security" button>
           <SecurityIcon sx={{ marginRight: '8px' }} />

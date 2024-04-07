@@ -3,6 +3,7 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import SideBar from '../components/SideBar';
 import { Typography, TextField, Button, MenuItem, Box } from '@mui/material';
 import { useAuth } from '../store/auth';
+import {toast} from 'react-toastify';
 
 const AddAccount = () => {
   const [inputs, setInputs] = useState({
@@ -39,11 +40,11 @@ const AddAccount = () => {
           bank_name: 'Central Bank Of India'
         })
       } else {
-        alert("Some error Occurred");
+        toast.error("Some error Occured");
       }
     }
     catch (err) {
-      console.log(err);
+      toast.error(err);
     }
   };
   const handleCancel = () => {

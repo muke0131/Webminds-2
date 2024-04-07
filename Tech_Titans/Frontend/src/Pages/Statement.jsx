@@ -2,12 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Table, TableHead, TableBody, TableRow, TableCell, Typography } from '@mui/material';
 import SideBar from '../components/SideBar';
 import { useAuth } from '../store/auth';
-
-  
+import {toast} from 'react-toastify';
 
 const Statement = () => {
   const {authToken}=useAuth();
   const [transactions,setTransactions]=useState([]);
+  const compareDates = (a, b) => {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+  
+    return dateA - dateB;
+  };
   const getStatusColor = (status) => {
     switch (status.toLowerCase()) {
       case 'received':
@@ -28,11 +33,10 @@ const Statement = () => {
         }
       })
       const data=await response.json()
-      console.log(data)
       setTransactions(data);
     }
     catch(err){
-      console.log(err);
+      toast.error(err);
     }
   }
   useEffect(()=>{
@@ -53,7 +57,7 @@ const Statement = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-        {transactions.map((transaction, index) => {
+        {transactions.sort(compareDates).reverse().map((transaction, index) => {
     var createdAt = transaction.createdAt; // Assuming transaction.createdAt is a valid date string
     var date = new Date(createdAt);
     var formattedDate = date.toLocaleString('en-US', {
@@ -67,9 +71,9 @@ const Statement = () => {
 
     return (
         <TableRow key={index}>
-            <TableCell sx={{ color: getStatusColor(transaction.status), borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{transaction.status}</TableCell>
+            <TableCell sx={{ color: getStatusColor(transaction.status), borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{(transaction.status).toUpperCase()}</TableCell>
             <TableCell sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{formattedDate}</TableCell>
-            <TableCell sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{transaction.amount}</TableCell>
+            <TableCell sx={{ color: 'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>₹ {transaction.amount}</TableCell>
             <TableCell sx={{ color:'black', borderBottom: 'none', fontFamily: 'serif', fontSize: '1.3rem' }}>{transaction.status=="sent"?transaction.to_name:transaction.from_name}</TableCell>
         </TableRow>
     );
