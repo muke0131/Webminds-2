@@ -11,11 +11,9 @@ import Support from './Pages/Support'
 import Service from './Pages/Service'
 import Security from './Pages/Security'
 import Statement from './Pages/Statement'
-import SideBar from './components/SideBar'
 import Login from './Pages/Login'
 import Signup from './Pages/Signup'
 import LogOut from './Pages/LogOut'
-import Header from './components/Header'
 import { useAuth } from './store/auth'
 import AddBankAcc from './Pages/AddBankAcc'
 import MobileSideBar from './components/MobileSideBar'
@@ -36,7 +34,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {!isLoginPage && isLoggedIn && <Header/>}
+      {/* {!isLoginPage && isLoggedIn && <Header/>} */}
       {/* {!isLoginPage && isLoggedIn && <SideBar/>} */}
       {!isLoginPage && isLoggedIn &&
       <IconButton className='topButton' onClick={toggleSidebar}>
@@ -60,7 +58,7 @@ function App() {
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/bank' element={<AddBankAcc/>}/>
         </Routes>
-        <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable style={{marginTop:"2rem"}} />
+        <ToastContainer className='toast-container' position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable style={{marginTop:"2rem"}} />
     </BrowserRouter>
   )
 }

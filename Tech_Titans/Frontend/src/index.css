@@ -3,12 +3,9 @@
   padding: 0;
 }
 body {
-  /* background-color: #320b7a; */
   background-color: #eeedf2;
 }
-.custom-sidebar .pro-sidebar {
-  background-color: transparent !important;
-}
+
 .topButton {
   display: none ;
 }
@@ -119,6 +116,7 @@ body {
   }
   .sendMoneyHeading{
     width: 80vw !important;
+    margin-top: 3rem !important;
   }
   .sendMoneyBox{
     width: 90vw !important;
@@ -128,5 +126,59 @@ body {
   }
   .sendMoneyAmount{
     width: 60vw !important;
+  }
+  .addBankAcc-heading{
+    margin-top: 3rem !important;
+    margin-left: 1.8rem !important;
+  }
+  .addBankAcc-textfield{
+    margin-left: 1rem !important;
+  }
+  .changePasswordContainer{
+    margin-left:0.1rem !important;
+  }
+  .changePasswordHeading{
+    width: 80vw !important;
+    margin-top: 3rem !important;
+  }
+  .changePasswordBox{
+    width: 80vw !important;
+    margin-left: 2rem !important;
+  }
+  .contact-box{
+    margin-left: 30px !important;
+  }
+  .contact-heading{
+    margin-top: 3rem !important;
+  }
+  .service-container{
+    margin-left: 40px !important;
+  }
+  .service-heading{
+    margin-top: 3rem !important;
+  }
+  .faq-heading{
+    font-size: 1.5rem !important;
+    margin-top: 3.5rem !important;
+    margin-bottom: 2rem !important;
+  }
+  .statementTable{
+    width: 100vw !important;
+  }
+  .statementHead{
+    font-size: 1rem !important;
+  }
+  .statementHeading{
+    margin-top: 3rem !important;
+  } 
+  .receiveMoneyForm{
+    margin-left: 2rem !important;
+  }
+  .receiveMoneyHeading{
+    margin-top: 3rem !important;
+  }
+  .toast-container{
+    width: 50%;
+    margin-left: auto;
   }
 }

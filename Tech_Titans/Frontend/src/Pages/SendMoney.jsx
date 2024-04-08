@@ -98,7 +98,7 @@ const SendMoney = () => {
   };
 
   return (
-    <Box className="sendMoneyForm" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10rem', position: 'relative' }}>
+    <Box className="sendMoneyForm" sx={{ display: 'flex',flexDirection: 'column', alignItems: 'center', marginLeft: '10rem', position: 'relative' }}>
       <SideBar />
       <Typography
       className='sendMoneyHeading' 

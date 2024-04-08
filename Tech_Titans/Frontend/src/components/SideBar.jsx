@@ -7,7 +7,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import HelpIcon from '@mui/icons-material/Help';
 import SecurityIcon from '@mui/icons-material/Security';
 import { useAuth } from '../store/auth';
-
+import LogoutIcon from '@mui/icons-material/Logout';
 const drawerWidth = 240;
 
 const SideBar = () => {
@@ -131,6 +131,10 @@ const SideBar = () => {
         <ListItem component={Link} to="/service" button>
           <HelpIcon sx={{ marginRight: '8px' }} />
           <ListItemText primary="Terms of Service" />
+        </ListItem>
+        <ListItem component={Link} to="/logout" button>
+          <LogoutIcon sx={{ marginRight: '8px' }} />
+          <ListItemText primary="Log Out" />
         </ListItem>
       </List>
     </Drawer>
