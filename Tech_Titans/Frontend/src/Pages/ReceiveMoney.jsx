@@ -16,7 +16,7 @@ const ReceiveMoney = () => {
   const getDetails = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/api/auth/user", {
+      const response = await fetch("https://webminds-2-1.onrender.com/api/auth/user", {
         method: "GET",
         headers: {
           Authorization: authToken,
@@ -25,7 +25,7 @@ const ReceiveMoney = () => {
       if (response.ok) {
         const data = await response.json();
         setUpiID(`${data.user.phone}@easyPay`);
-        const newRes = await fetch(`http://localhost:4000/api/account/bank/${data.user.banks[0]._id}`, {
+        const newRes = await fetch(`https://webminds-2-1.onrender.com/api/account/bank/${data.user.banks[0]._id}`, {
           method: "GET",
           headers: {
             Authorization: authToken,
@@ -67,7 +67,7 @@ const ReceiveMoney = () => {
 
   const shareQRCode = () => {
     navigator.clipboard.writeText(shareableLink);
-    toast.success('QR code link copied to clipboard');
+    toast.success('QR code link copied to clipboard!');
   };
 
   return (

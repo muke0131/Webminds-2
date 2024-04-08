@@ -22,7 +22,7 @@ const AddBankAcc = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:4000/api/account/admin/createAccount", {
+      const response = await fetch("https://webminds-2-1.onrender.com/api/account/admin/createAccount", {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"

@@ -17,7 +17,7 @@ const MobileSideBar = () => {
   const { authToken } = useAuth();
   const getDetails = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/auth/user", {
+      const response = await fetch("https://webminds-2-1.onrender.com/api/auth/user", {
         method: "GET",
         headers: {
           Authorization: authToken,
@@ -27,7 +27,7 @@ const MobileSideBar = () => {
         const data = await response.json()
         // console.log(data)
         setUsername(data.user.username);
-        const newRes = await fetch(`http://localhost:4000/api/account/bank/${data.user.banks[0]._id}`, {
+        const newRes = await fetch(`https://webminds-2-1.onrender.com/api/account/bank/${data.user.banks[0]._id}`, {
           method: "GET",
           headers: {
             Authorization: authToken,

@@ -29,7 +29,7 @@ const Transaction_table = () => {
   const getTransactions = async () => {
     setIsLoading(true)
     try {
-      const response = await fetch("http://localhost:4000/api/payments/transactions", {
+      const response = await fetch("https://webminds-2-1.onrender.com/api/payments/transactions", {
         method: "GET",
         headers: {
           "Authorization": authToken
@@ -49,7 +49,7 @@ const Transaction_table = () => {
 
   return (
     <div >
-      <Typography className='recent' variant="h5" style={{ textAlign: 'center', color: 'black', marginBottom: '30px', fontFamily: 'times-new-roman', fontWeight: 'bolder', fontSize: '2.3rem' }}>Recent Transactions</Typography>
+      <Typography className='recent' variant="h5" style={{ textAlign: 'center', color: 'black', marginBottom: '30px', fontFamily: 'times-new-roman', fontSize: '2.3rem' }}>Recent Transactions</Typography>
       {isLoading ? (
         <Box
           sx={{
