@@ -45,7 +45,7 @@ const Support = () => {
       <SideBar />
       <div style={{ marginLeft: '5rem' }}>
         <div style={{ marginTop: '2rem', marginBottom: '2rem' }}>
-          <Typography variant="h4" style={{ color: 'black', marginBottom: '20px',fontFamily:'times-new-roman' }}>Frequently Asked Questions</Typography>
+          <Typography className='faq-heading' variant="h4" style={{ color: 'black', marginBottom: '20px',fontFamily:'times-new-roman' }}>Frequently Asked Questions</Typography>
           {faqData.map((faq, index) => (
             <Accordion key={index} style={{ marginBottom: '10px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', borderRadius: '4px', width: '80%' }}>
               <AccordionSummary

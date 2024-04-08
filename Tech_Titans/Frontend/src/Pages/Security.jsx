@@ -71,9 +71,10 @@ const Security = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft:'10rem' }}>
+    <Box className="changePasswordContainer"
+     sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft:'10rem' }}>
       <SideBar />
-      <Typography variant="h4" style={{ textAlign: 'center', color: 'black', marginBottom: '30px', fontFamily: 'times-new-roman', marginTop: '2rem' }}>Change Password</Typography>
+      <Typography className='changePasswordHeading' variant="h4" style={{ textAlign: 'center', color: 'black', marginBottom: '30px', fontFamily: 'times-new-roman', marginTop: '2rem' }}>Change Password</Typography>
       {isLoading ? (
         <Box
           sx={{
@@ -100,6 +101,7 @@ const Security = () => {
         >
           <Box style={{ position: 'relative' }}>
             <TextField
+            className='changePasswordBox'
               type={showCurrentPassword ? 'text' : 'password'}
               id='current_password'
               label='current password'
@@ -128,6 +130,7 @@ const Security = () => {
           </Box>
           <Box style={{ position: 'relative' }}>
             <TextField
+            className='changePasswordBox'
               type={showNewPassword ? 'text' : 'password'}
               id='new_password'
               name='new_password'
@@ -155,6 +158,7 @@ const Security = () => {
           </Box>
           <Box style={{ position: 'relative' }}>
             <TextField
+              className='changePasswordBox'
               type={showConfirmPassword ? 'text' : 'password'}
               id='confirm_password'
               name='confirm_password'

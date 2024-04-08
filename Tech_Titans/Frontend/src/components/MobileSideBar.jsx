@@ -12,46 +12,44 @@ import { useAuth } from '../store/auth';
 const drawerWidth = 240;
 
 const MobileSideBar = () => {
-  const [userName,setUsername]=useState("---------");
-  const [ac,setAc]=useState("***********");
+  const [userName, setUsername] = useState("---------");
+  const [ac, setAc] = useState("***********");
   const { authToken } = useAuth();
-
-  const getDetails=async ()=>{
-    try{
-      const response=await fetch("http://localhost:4000/api/auth/user",{
-        method:"GET",
+  const getDetails = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/api/auth/user", {
+        method: "GET",
         headers: {
           Authorization: authToken,
         }
       })
-      if(response.ok){
-        const data=await response.json()
+      if (response.ok) {
+        const data = await response.json()
         // console.log(data)
         setUsername(data.user.username);
-        const newRes=await fetch(`http://localhost:4000/api/account/bank/${data.user.banks[0]._id}`,{
-          method:"GET",
+        const newRes = await fetch(`http://localhost:4000/api/account/bank/${data.user.banks[0]._id}`, {
+          method: "GET",
           headers: {
             Authorization: authToken,
           }
         })
-        if(newRes.ok){
-          const bankData=await newRes.json();
+        if (newRes.ok) {
+          const bankData = await newRes.json();
           console.log(bankData);
           setAc(bankData.account.account_no);
         }
       }
-      else{
+      else {
         setAc("***********")
       }
     }
-    catch(err){
+    catch (err) {
       console.log(err);
     }
   }
-  useEffect(()=>{
+  useEffect(() => {
     getDetails();
-  },[getDetails])
-  
+  }, [getDetails])
   return (
     <Drawer
       className='mobileSideBar'
@@ -65,54 +63,55 @@ const MobileSideBar = () => {
         },
       }}
       variant="permanent"
-      anchor="left"
+      anchor="left" 
     >
-      <List sx={{ padding:'16px', color:'#fff' }}>
-        <ListItem 
-          sx={{ marginBottom:'10' }} 
-          component={Link} 
-          to="/dashboard" 
-          button 
+      <List sx={{ padding: '16px', color: '#fff' }}>
+        <ListItem
+          sx={{ marginBottom: '10' }}
+          component={Link}
+          to="/dashboard"
+          button
+          
         >
           <DashboardIcon sx={{ marginRight: '8px' }} />
-          <ListItemText 
-            primary="Dashboard" 
-            primaryTypographyProps={{ 
-              variant: 'h5', 
-              fontWeight: 'bolder', 
+          <ListItemText
+            primary="Dashboard"
+            primaryTypographyProps={{
+              variant: 'h5',
+              fontWeight: 'bolder',
               fontSize: '25px',
               fontFamily: 'Times New Roman'
-            }} 
+            }}
           />
         </ListItem>
         <br />
         <br />
         <Divider sx={{ backgroundColor: '#fff' }} />
         <ListItem>
-          <ListItemText 
-            primary="Customer Details" 
-            primaryTypographyProps={{ 
+          <ListItemText
+            primary="Customer Details"
+            primaryTypographyProps={{
               variant: 'h6',
-              fontSize:'18px',
+              fontSize: '18px',
               fontWeight: 'bolder',
-            }} 
+            }}
           />
         </ListItem>
         <ListItem sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-          <ListItemText primary="Name" primaryTypographyProps={{  
-              fontWeight: 'bolder',
-              fontSize:'18px',
-              variant:'h6'
-            }} />
+          <ListItemText primary="Name" primaryTypographyProps={{
+            fontWeight: 'bolder',
+            fontSize: '18px',
+            variant: 'h6'
+          }} />
           <ListItemText primary={userName} />
         </ListItem>
         <ListItem sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-          <ListItemText  primary="Account Number" primaryTypographyProps={{  
-              fontWeight: 'bolder',
-              fontSize:'18px',
-              variant:'h6'
-            }} />
-          <ListItemText  primary={ac} />
+          <ListItemText primary="Account Number" primaryTypographyProps={{
+            fontWeight: 'bolder',
+            fontSize: '18px',
+            variant: 'h6'
+          }} />
+          <ListItemText primary={ac} />
         </ListItem>
         <br />
         <br />
@@ -129,7 +128,7 @@ const MobileSideBar = () => {
           <ContactSupportIcon sx={{ marginRight: '8px' }} />
           <ListItemText primary="FAQ" />
         </ListItem>
-        <ListItem component={Link} to="/service" button>
+        <ListItem component={Link} to="/service" button >
           <HelpIcon sx={{ marginRight: '8px' }} />
           <ListItemText primary="Terms of Service" />
         </ListItem>

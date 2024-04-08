@@ -7,7 +7,7 @@ const Service = () => {
     <div style={{ display: 'flex' }}>
       <SideBar />
       <div className="service-container">
-      <Typography variant="h4" style={{ textAlign:'center',color: 'black', marginBottom: '30px',fontFamily:'times-new-roman',marginTop:'1.2rem' }}>Terms of Service</Typography>
+      <Typography className='service-heading' variant="h4" style={{ textAlign:'center',color: 'black', marginBottom: '30px',fontFamily:'times-new-roman',marginTop:'1.2rem' }}>Terms of Service</Typography>
         <p>
           Welcome to easyPay! These terms of service ("Terms") govern your use of <br />easyPay's website, services, and applications (collectively referred to as the<br /> "Service"). By accessing or using the Service, you agree to be bound by these<br /> Terms.<br /><br />
 
