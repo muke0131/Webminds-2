@@ -18,7 +18,7 @@ const SendMoney = () => {
 
   const getAccounts = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/account/getUserAccounts", {
+      const response = await fetch("https://webminds-2-1.onrender.com/api/account/getUserAccounts", {
         method: "GET",
         headers: {
           Authorization: authToken,
@@ -60,7 +60,7 @@ const SendMoney = () => {
     delete inputs['currency'];
 
     try {
-      const response = await fetch("http://localhost:4000/api/payments/makePayment", {
+      const response = await fetch("https://webminds-2-1.onrender.com/api/payments/makePayment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

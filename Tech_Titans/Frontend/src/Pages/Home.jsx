@@ -5,7 +5,6 @@ import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import PaymentIcon from "@mui/icons-material/Payment";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import User_details from "../components/User_details";
 import UpcomingPayments from "../components/Upcoming_payments";
 import Transaction_table from "../components/Transaction_table";
 import LineChart from "../components/LineChart";

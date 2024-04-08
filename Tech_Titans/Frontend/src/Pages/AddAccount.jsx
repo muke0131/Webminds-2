@@ -26,7 +26,7 @@ const AddAccount = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/api/account/addBank", {
+      const response = await fetch("https://webminds-2-1.onrender.com/api/account/addBank", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,7 +35,7 @@ const AddAccount = () => {
         body: JSON.stringify(inputs)
       });
       if (response.ok) {
-        toast.success("Bank Added Successfully");
+        toast.success("Account linked successfully!");
         setInputs({
           username: '',
           account_no: '',
@@ -43,7 +43,7 @@ const AddAccount = () => {
         })
         navigate('/dashboard')
       } else {
-        toast.error("Some error Occured");
+        toast.error("Some error occured!");
       }
       setIsLoading(false);
     }
@@ -71,7 +71,7 @@ const AddAccount = () => {
             alignItems: "center",
             height: "100vh",
             flexDirection: "column",
-            marginLeft: '10rem'
+            margin:'auto',
           }}
         >
           <CircularProgress color="inherit" />
