@@ -2,7 +2,9 @@
 
 <h1 align="center" id="title">Payments App</h1>
 
-[WEB APP LINK](https://easypayy.netlify.app/)
+[WEB APP LINK](https://easyypay.netlify.app/)
+
+[DEMO LINK](https://www.linkedin.com/posts/mukul-nayak-973014220_easypay-mern-paymentdashboard-activity-7183042611891372033-aJxE?utm_source=share&utm_medium=member_android)
   
 <h2>🧐 Features</h2>
 
