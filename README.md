@@ -1,22 +1,54 @@
-# Webminds-2
+# EasyPay
 
-The Computer Society of India SRM Delhi-NCR Chapter is thrilled to present an exhilarating event that will put your creativity to the ultimate test! 🎨✨
+<h1 align="center" id="title">Payments App</h1>
 
-Introducing WEB MINDS 2.0, our exclusive Web Design Contest, open to all creative wizards out there! Whether you're an individual or part of a team, this is your chance to showcase your talent and enhance your skills. 🚀
+[WEB APP LINK](https://easypayy.netlify.app/)
+  
+<h2>🧐 Features</h2>
 
-📌 Contest Details:
-- Design Theme : The winning design from the recent CSI contest DesignForge.
-- Venue for Presentation : Lab 6 & 7 at Vendhar Knowledge Centre.
-- Timings : 11:00 AM - 1:00 PM
-- Development Period : March 1st to March 3rd.(Online)
-- Presentation Round : March 4th.(Offline)
-- Team Size : Upto 4
+Here're some of the project's best features:
 
-🎁 Winners will receive certificates and goodies! 🎉
+*   You can add multiple bank accounts
+*   make transactions from accounts
+*   track your transaction history across accounts
 
-# IMPORTANT:
+<h2>🛠️ Installation Steps:</h2>
 
-1. CREATE A FORK OF THE REPOSITORY ON YOUR ACCOUNT.
-2. CREATE A DIRECTORY WITH YOUR NAME AND ONLY DO FILE ADDITION AND MODIFICATION INSIDE THAT DIRECTORY.
-3. ANY CHANGES DONE OUTSIDE THE NAMED DIRECTORY WILL NOT BE MERGED WITH THE REPOSITORY.
+<p>1. BACKEND</p>
 
+```
+cd Tech_Titans/Backend
+```
+
+```
+npm install
+```
+
+```
+node server.js
+```
+
+<p>2. FRONTEND</p>
+
+```
+cd Tech_Titans/Frontend
+```
+
+```
+npm install
+```
+
+```
+npm run dev
+```
+
+  
+  
+<h2>💻 Built with</h2>
+
+Technologies used in the project:
+
+*   React
+*   Express
+*   JWT
+*   MUI
